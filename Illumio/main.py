@@ -7,7 +7,7 @@ from requests.exceptions import RequestException
 from netskope.integrations.cte.plugin_base import PluginBase, ValidationResult
 
 
-class IllumioLabelPlugin(Plugin):
+class IllumioLabelPlugin(PluginBase):
     """
     This plugin retrieves labels from the Illumio API based on the provided configuration.
     """
