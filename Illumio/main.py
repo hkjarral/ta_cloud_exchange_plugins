@@ -59,10 +59,10 @@ class IllumioLabelPlugin(Plugin):
         Returns:
             A dictionary containing the labels and their IDs.
         """
-        labels = {}
+        labels = (self.configuration["label_id"])
         try:
             response = requests.get(
-                url=f"{self.configuration['api_endpoint']}/api/v2//orgs/{self.configuration['org_id']}/labels",
+                url=f"{self.configuration['api_endpoint']}/api/v2/orgs/{self.configuration['org_id']}/labels",
                 auth=(self.configuration["api_key"], self.configuration["api_secret"]),
                 headers={"Content-Type": "application/json"},
                 timeout=30,
