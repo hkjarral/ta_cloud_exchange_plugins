@@ -49,7 +49,7 @@ class IllumioLabelPlugin(PluginBase):
         if not isinstance(self.configuration["api_url"], str):
             return ValidationResult(success=False, message="API url must be a string.")
         if not isinstance(self.configuration["org_id"].isdigit()):
-            return ValidationResult(success=False, message="Organization ID must be a string.")
+            return ValidationResult(success=False, message="Organization ID must be a digits.")
         if not isinstance(self.configuration["label_id"], str):
             return ValidationResult(success=False, message="Label ID must be a string.")
         return ValidationResult(success=True, message="Validation successful.")
