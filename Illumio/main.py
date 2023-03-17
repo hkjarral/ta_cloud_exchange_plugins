@@ -4,7 +4,7 @@ import requests
 
 from typing import Dict, Any
 from requests.exceptions import RequestException
-from ta_cloud_exchange_plugins import Plugin, ValidationResult
+from netskope.integrations.cte.plugin_base import PluginBase, ValidationResult
 
 
 class IllumioLabelPlugin(Plugin):
