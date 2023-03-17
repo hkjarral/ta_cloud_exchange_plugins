@@ -1,52 +1,66 @@
 {
-    "name": "Illumio",
-    "id": "Illumio",
-    "version": "1.0.0",
-    "description": "The illumio plugin pulls labels from Illumio PCE",
-    "patch_supported": false,
-    "push_supported": false,
-    "configuration": [
+  "name": "Illumio",
+  "description": "This plugin pulls lables of choice from Illumio PCE",
+  "id": "servicenow_itsm",
+  "version": "1.0.0",
+  "pulling_supported": true,
+  "receiving_supported": true,
+  "configuration": [
+    {
+      "label": "Authentication",
+      "name": "auth",
+      "type": "step",
+      "fields": [
         {
-            "label": "Username",
-            "key": "key_username",
-            "type": "text",
-            "default": "",
-            "mandatory": true,
-            "description": "Authentication Username"
+          "label": "PCE URL",
+          "key": "url",
+          "type": "text",
+          "default": "",
+          "mandatory": true,
+          "description": "PCE instance URL."
         },
         {
-            "label": "Key Secret",
-            "key": "key_secret",
-            "type": "password",
-            "default": "",
-            "mandatory": true,
-            "description": "Authentication Secret"
+          "label": "API Username",
+          "key": "username",
+          "type": "text",
+          "default": "",
+          "mandatory": true,
+          "description": "API username."
         },
         {
-            "label": "Label ID",
-            "key": "label_id",
-            "type": "test",
-            "default": "Quarantine",
-            "mandatory": true,
-            "description": "Label ID"
-        },
-        {
-            "label": "Enable Tagging",
-            "key": "enable_tagging",
-            "type": "choice",
-            "choices": [
-                {
-                    "key": "Yes",
-                    "value": "Yes"
-                },
-                {
-                    "key": "No",
-                    "value": "No"
-                }
-            ],
-            "default": "Yes",
-            "mandatory": true,
-            "description": "Enable/Disable tagging functionality."
+          "label": "API Password",
+          "key": "password",
+          "type": "password",
+          "default": "",
+          "mandatory": true,
+          "description": "API password."
         }
-    ]
+      ]
+    },
+    {
+      "label": "Configuration Parameters",
+      "name": "params",
+      "type": "step",
+      "fields": [
+        {
+          "label": "Destination Table",
+          "key": "table",
+          "type": "choice",
+          "choices": [
+            {
+              "key": "Security Incidents",
+              "value": "sn_si_incident"
+            },
+            {
+              "key": "Incidents",
+              "value": "incident"
+            }
+          ],
+          "default": "sn_si_incident",
+          "mandatory": true,
+          "description": "Name of the table where incidents will be created."
+        }
+      ]
+    }
+  ]
 }
