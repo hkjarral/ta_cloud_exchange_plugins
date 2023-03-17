@@ -95,3 +95,76 @@ class IllumioPlugin(PluginBase):
             ),
         )
         return ioc_response
+
+    def validate(self, configuration: Dict) -> ValidationResult:
+        """Validate the configuration.
+        Args:
+            configuration(dict): Configuration from manifest.json.
+        Returns:
+            ValidationResult: Valid configuration fields or not.
+        """
+        # Base URL
+        if (
+                "api_url" not in configuration
+                or not isinstance(configuration["api_url"], str)
+                or not configuration["api_url"].strip()
+                or not self._validate_url(configuration["api_url"])
+        ):
+            self.logger.error(
+                "Illumio Plugin: "
+                "Invalid Base URL found in the configuration parameters."
+            )
+            return ValidationResult(
+                success=False,
+                message="Invalid Base URL provided.",
+            )
+        # auth_username
+        if (
+                "auth_username" not in configuration
+                or not isinstance(configuration["auth_username"], str)
+                or not configuration["auth_username"].strip()
+        ):
+            self.logger.error(
+                "Illumio Plugin: "
+                "Invalid Access ID found in the configuration parameters."
+            )
+            return ValidationResult(
+                success=False,
+                message="Invalid Access ID provided.",
+            )
+        # Secret Key
+        if (
+                "auth_password" not in configuration
+                or not isinstance(configuration["auth_password"], str)
+                or not configuration["auth_password"].strip()
+        ):
+            self.logger.error(
+                "Illumio Plugin: "
+                "No Secret key found in configuration parameters."
+            )
+            return ValidationResult(
+                success=False, message="Invalid Secret key provided."
+            )
+        # Organization ID
+        if (
+                "org_id" not in configuration
+                or not isinstance(configuration["org_id"].isdigit)
+        ):
+            self.logger.error(
+                "Illumio Plugin: "
+                "Organization ID is invalid"
+            )
+            return ValidationResult(
+                success=False, message="Invalid Organization ID provided."
+            )
+
+        if not self._is_valid_credentials(
+                configuration["api_url"],
+                configuration["auth_username"],
+                configuration["auth_password"],
+        ):
+            return ValidationResult(
+                success=False,
+                message="Invalid Access ID or Secret key provided.",
+            )
+        
