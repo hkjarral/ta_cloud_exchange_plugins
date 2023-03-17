@@ -1,6 +1,6 @@
 {
   "name": "Illumio",
-  "description": "This plugin pulls lables of choice from Illumio PCE",
+  "description": "This plugin pulls labels of choice from Illumio PCE",
   "id": "illumio",
   "version": "1.0.0",
   "pulling_supported": true,
