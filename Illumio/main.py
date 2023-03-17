@@ -42,14 +42,16 @@ class IllumioLabelPlugin(PluginBase):
         Returns:
             A ValidationResult object indicating whether the validation was successful and, if not, the reason for failure.
         """
-        if not isinstance(self.configuration["api_key"], str):
-            return ValidationResult(success=False, message="API key must be a string.")
-        if not isinstance(self.configuration["api_secret"], str):
+        if not isinstance(self.configuration["api_password"], str):
+            return ValidationResult(success=False, message="API username must be a string.")
+        if not isinstance(self.configuration["api_username"], str):
             return ValidationResult(success=False, message="API secret must be a string.")
-        if not isinstance(self.configuration["api_endpoint"], str):
-            return ValidationResult(success=False, message="API endpoint must be a string.")
-        if not isinstance(self.configuration["org_id"], str):
+        if not isinstance(self.configuration["api_url"], str):
+            return ValidationResult(success=False, message="API url must be a string.")
+        if not isinstance(self.configuration["org_id"].isdigit()):
             return ValidationResult(success=False, message="Organization ID must be a string.")
+        if not isinstance(self.configuration["label_id"], str):
+            return ValidationResult(success=False, message="Label ID must be a string.")
         return ValidationResult(success=True, message="Validation successful.")
 
     def pull_labels(self) -> Dict[str, str]:
