@@ -1,7 +1,7 @@
 {
   "name": "Illumio",
   "description": "This plugin pulls lables of choice from Illumio PCE",
-  "id": "servicenow_itsm",
+  "id": "illumio",
   "version": "1.0.0",
   "pulling_supported": true,
   "receiving_supported": true,
@@ -43,22 +43,19 @@
       "type": "step",
       "fields": [
         {
-          "label": "Destination Table",
-          "key": "table",
-          "type": "choice",
-          "choices": [
-            {
-              "key": "Security Incidents",
-              "value": "sn_si_incident"
-            },
-            {
-              "key": "Incidents",
-              "value": "incident"
-            }
-          ],
-          "default": "sn_si_incident",
+          "label": "Organization ID",
+          "key": "org",
+          "type": "text",
+          "default": "",
           "mandatory": true,
-          "description": "Name of the table where incidents will be created."
+          "description": "Organization ID"
+          ],
+          "label": "label_id",
+          "key": "label",
+          "type": "text",
+          "default": "quarantine",
+          "mandatory": true,
+          "description": "Label ID to pull"
         }
       ]
     }
