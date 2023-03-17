@@ -13,7 +13,7 @@
       "fields": [
         {
           "label": "PCE URL",
-          "key": "url",
+          "key": "api_url",
           "type": "text",
           "default": "",
           "mandatory": true,
@@ -21,7 +21,7 @@
         },
         {
           "label": "API Username",
-          "key": "username",
+          "key": "auth_username",
           "type": "text",
           "default": "",
           "mandatory": true,
@@ -29,19 +29,12 @@
         },
         {
           "label": "API Password",
-          "key": "password",
+          "key": "auth_password",
           "type": "password",
           "default": "",
           "mandatory": true,
           "description": "API password."
-        }
-      ]
-    },
-    {
-      "label": "Configuration Parameters",
-      "name": "params",
-      "type": "step",
-      "fields": [
+        },
         {
           "label": "Organization ID",
           "key": "org",
@@ -61,4 +54,3 @@
       ]
     }
   ]
-}
