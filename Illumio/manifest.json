@@ -1,56 +1,50 @@
 {
-  "name": "Illumio",
-  "description": "This plugin pulls labels of choice from Illumio PCE",
-  "id": "illumio",
-  "version": "1.0.0",
-  "pulling_supported": true,
-  "receiving_supported": true,
-  "configuration": [
-    {
-      "label": "Authentication",
-      "name": "auth",
-      "type": "step",
-      "fields": [
+    "name": "Illumio",
+    "id": "Illumio",
+    "version": "1.0.0",
+    "description": "This plugin pulls labels from Illumio PCE",
+    "patch_supported": true,
+    "push_supported": true,
+    "configuration": [
         {
-          "label": "PCE URL",
-          "key": "api_url",
-          "type": "text",
-          "default": "",
-          "mandatory": true,
-          "description": "PCE instance URL."
+            "label": "PCE URL",
+            "key": "api_url",
+            "type": "text",
+            "default": "",
+            "mandatory": true,
+            "description": "PCE url"
         },
         {
-          "label": "API Username",
-          "key": "auth_username",
-          "type": "text",
-          "default": "",
-          "mandatory": true,
-          "description": "API username."
+            "label": "API Username",
+            "key": "auth_username",
+            "type": "text",
+            "default": "",
+            "mandatory": true,
+            "description": "PCE API Username."
         },
         {
-          "label": "API Password",
-          "key": "auth_password",
-          "type": "password",
-          "default": "",
-          "mandatory": true,
-          "description": "API password."
+            "label": "API Password",
+            "key": "auth_password",
+            "type": "password",
+            "default": "",
+            "mandatory": true,
+            "description": "PCE auth Password"
         },
         {
-          "label": "Organization ID",
-          "key": "org",
-          "type": "text",
-          "default": "",
-          "mandatory": true,
-          "description": "Organization ID"
-        },
+            "label": "Organization ID",
+            "key": "org_id",
+            "type": "text",
+            "default": "",
+            "mandatory": true,
+            "description": "Organization ID"
+                },
         {
-          "label": "label_id",
-          "key": "label",
-          "type": "text",
-          "default": "quarantine",
-          "mandatory": true,
-          "description": "Label ID to pull"
-        }
-      ]
-    }
-  ]
+            "label": "Label to Pull",
+            "key": "label_id",
+            "type": "text",
+            "default": "quarantine",
+            "mandatory": true,
+            "description": "Label to pull from Illumio PCE"
+                }
+            ]
+}
