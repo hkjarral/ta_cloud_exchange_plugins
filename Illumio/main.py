@@ -12,6 +12,11 @@ from typing import List
 from netskope.integrations.cte.models import TagIn
 from netskope.integrations.cte.utils import TagUtils
 
+from netskope.integrations.cte.plugin_base import (
+    PluginBase,
+    ValidationResult,
+)
+
 class AuthenticationException(Exception):
     pass
 
