@@ -1,4 +1,4 @@
-"""Illumio Plugin implementation to pull Label data from Policy Compute Engine"""
+"""Illumio Plugin implementation to pull data from Illumio Platform."""
 
 import requests
 import datetime
@@ -9,19 +9,16 @@ import json
 from typing import List
 
 
-from netskope.integrations.cte.models import TagIn
-from netskope.integrations.cte.utils import TagUtils
-
 from netskope.integrations.cte.plugin_base import (
     PluginBase,
     ValidationResult,
 )
-
 class AuthenticationException(Exception):
     pass
 
+
 class IllumioPlugin(PluginBase):
-    """Illumio Plugin class for pulling Label information."""
+    """IllumioPlugin class for pulling threat information."""
 
     def handle_error(self, resp):
         """Handle the different HTTP response code.
@@ -97,5 +94,3 @@ class IllumioPlugin(PluginBase):
                 f"Received exit code {resp.status_code}, HTTP Error"
             )
         resp.raise_for_status()
-
-   
