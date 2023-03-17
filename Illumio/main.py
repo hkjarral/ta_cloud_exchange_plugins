@@ -9,20 +9,8 @@ import json
 from typing import List
 
 
-from netskope.integrations.cte.plugin_base import (
-    PluginBase,
-    ValidationResult,
-)
-
+from netskope.integrations.cte.models import TagIn
 from netskope.integrations.cte.utils import TagUtils
-
-from netskope.integrations.cte.models import (
-    Indicator,
-    IndicatorType,
-    SeverityType,
-    TagIn,
-)
-from netskope.common.utils import add_user_agent
 
 class AuthenticationException(Exception):
     pass
