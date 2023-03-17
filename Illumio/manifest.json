@@ -7,7 +7,7 @@
     "push_supported": true,
     "configuration": [
         {
-            "label": "PCE URL",
+            "label": "PCE url",
             "key": "api_url",
             "type": "text",
             "default": "",
