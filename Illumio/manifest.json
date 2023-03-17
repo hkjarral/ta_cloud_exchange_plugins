@@ -31,64 +31,6 @@
             "description": "Illumio API password"
         },
         {
-            "label": "Type of Threat IoC",
-            "key": "threat_type",
-            "type": "choice",
-            "choices": [
-                {
-                    "key": "Both",
-                    "value": "Both"
-                },
-                {
-                    "key": "Malware",
-                    "value": "File"
-                },
-                {
-                    "key": "URL",
-                    "value": "URL"
-                }
-            ],
-            "mandatory": true,
-            "default":"Both",
-            "description": "Type of threat IoC you want to pull from ThreatConnect."
-        },
-        {
-            "label": "Enable Tagging",
-            "key": "enable_tagging",
-            "type": "choice",
-            "choices": [
-                {
-                    "key": "Yes",
-                    "value": "Yes"
-                },
-                {
-                    "key": "No",
-                    "value": "No"
-                }
-            ],
-            "default": "No",
-            "mandatory": false,
-            "description": "Enable/Disable tagging functionality."
-        },
-        {
-            "label": "Enable Polling",
-            "key": "is_pull_required",
-            "type": "choice",
-            "choices": [
-                {
-                    "key": "Yes",
-                    "value": "Yes"
-                },
-                {
-                    "key": "No",
-                    "value": "No"
-                }
-            ],
-            "default": "Yes",
-            "mandatory": false,
-            "description": "Enable/Disable polling data from ThreatConnect."
-        },
-        {
             "label": "Initial Range (in days)",
             "key": "days",
             "type": "number",
