@@ -64,8 +64,8 @@ class IllumioLabelPlugin(PluginBase):
         labels = (self.configuration["label_id"])
         try:
             response = requests.get(
-                url=f"{self.configuration['api_endpoint']}/api/v2/orgs/{self.configuration['org_id']}/labels",
-                auth=(self.configuration["api_key"], self.configuration["api_secret"]),
+                url=f"{self.configuration['api_url']}/api/v2/orgs/{self.configuration['org_id']}/labels",
+                auth=(self.configuration["api_username"], self.configuration["api_password"]),
                 headers={"Content-Type": "application/json"},
                 timeout=30,
             )
