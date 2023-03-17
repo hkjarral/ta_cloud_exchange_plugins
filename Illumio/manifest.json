@@ -37,7 +37,7 @@
             "default": "",
             "mandatory": true,
             "description": "Organization ID"
-                },
+        },
         {
             "label": "Label to Pull",
             "key": "label_id",
@@ -45,6 +45,6 @@
             "default": "quarantine",
             "mandatory": true,
             "description": "Label to pull from Illumio PCE"
-                }
-            ]
+        }
+    ]
 }
