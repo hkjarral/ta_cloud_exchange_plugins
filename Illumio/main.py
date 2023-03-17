@@ -1,7 +1,7 @@
 import requests
 import json
 import argparse
-import ta_cloud_exchange_plugin_helper
+
 
 # Set the Illumio API endpoint and authentication parameters
 API_ENDPOINT = 'https://api.illumio.com'
