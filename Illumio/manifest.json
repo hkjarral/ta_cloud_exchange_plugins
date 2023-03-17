@@ -15,7 +15,7 @@
             "description": "Illumio API Base URL."
         },
         {
-            "label": "API Username",
+            "label": "API Authentication Username",
             "key": "api_username",
             "type": "text",
             "default": "",
@@ -23,7 +23,7 @@
             "description": "Illumio API Username"
         },
         {
-            "label": "API PAssword",
+            "label": "API Secret",
             "key": "api_password",
             "type": "password",
             "default": "",
