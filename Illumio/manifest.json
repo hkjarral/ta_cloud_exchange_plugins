@@ -16,7 +16,7 @@
         },
         {
             "label": "API Username",
-            "key": "auth_username",
+            "key": "api_username",
             "type": "text",
             "default": "",
             "mandatory": true,
@@ -24,19 +24,27 @@
         },
         {
             "label": "API PAssword",
-            "key": "auth_password",
+            "key": "api_password",
             "type": "password",
             "default": "",
             "mandatory": true,
             "description": "Illumio API password"
         },
         {
-            "label": "Initial Range (in days)",
-            "key": "days",
+            "label": "Organization ID",
+            "key": "org_id",
             "type": "number",
-            "mandatory": false,
-            "default": 7,
-            "description": "Number of days to pull the data for the initial run."
+            "mandatory": true,
+            "default": "",
+            "description": "Organization ID"
+        },
+        {
+            "label": "Label ID",
+            "key": "label_id",
+            "type": "text",
+            "mandatory": true,
+            "default": "quarantine",
+            "description": "Label ID"
         }
     ]
 }
