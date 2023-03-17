@@ -1,5 +1,8 @@
 from typing import Dict
-from nsk_plugins_utils import PluginConfigValidator, ValidationResult
+from netskope.integrations.itsm.plugin_base import (
+    PluginBase,
+    ValidationResult,
+)
 
 
 class MyPluginConfigValidator(PluginConfigValidator):
