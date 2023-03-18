@@ -35,7 +35,7 @@ class IllumioLabelPlugin(PluginBase):
             self.logger.error("Label ID is missing from configuration.")
             raise ValueError("Label ID is missing from configuration.")
 
-    def validate_configuration(self) -> ValidationResult:
+    def validate(self, configuration) -> ValidationResult:
         """
         Validates the plugin configuration.
 
