@@ -1,82 +1,86 @@
-import requests
 import json
-import argparse
-import ta_common
-import ta_cloud_exchange_plugin_helper
+import logging
+import requests
 
-# Set the Illumio API endpoint and authentication parameters
-API_ENDPOINT = 'https://api.illumio.com'
-API_KEY = '<your API key>'
-API_SECRET = '<your API secret>'
+from typing import Dict, Any
+from requests.exceptions import RequestException
+from netskope.integrations.cte.plugin_base import PluginBase, ValidationResult
 
-# Define a function to authenticate with the API and return an access token
-def get_access_token():
-    auth_url = API_ENDPOINT + '/oauth2/token'
-    auth_data = {
-        'grant_type': 'client_credentials',
-        'client_id': API_KEY,
-        'client_secret': API_SECRET
-    }
-    response = requests.post(auth_url, data=auth_data)
-    if response.status_code == 200:
-        return response.json()['access_token']
-    else:
-        print('Authentication failed: ' + str(response.status_code))
-        return None
 
-# Define a function to retrieve a list of labels from the Illumio API
-def get_labels():
-    labels_url = API_ENDPOINT + '/api/v2/orgs/self/labels'
-    headers = {
-        'Authorization': 'Bearer ' + get_access_token(),
-        'Content-Type': 'application/json'
-    }
-    response = requests.get(labels_url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print('Error retrieving labels: ' + str(response.status_code))
-        return None
+class IllumioLabelPlugin(PluginBase):
+    """
+    This plugin retrieves labels from the Illumio API based on the provided configuration.
+    """
 
-# Define the main function
-def main():
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--client-id', required=True, help='OAuth2 client ID')
-    parser.add_argument('--client-secret', required=True, help='OAuth2 client secret')
-    args = parser.parse_args()
+    def __init__(self, configuration: Dict[str, Any]):
+        super().__init__(configuration)
 
-    # Set the Netskope Cloud Exchange API endpoint and authentication parameters
-    CLOUD_EXCHANGE_API_ENDPOINT = 'https://api.netskope.com/cloudexchange/v1'
-    CLIENT_ID = args.client_id
-    CLIENT_SECRET = args.client_secret
+        # Set up logger
+        self.logger = logging.getLogger(__name__)
 
-    # Authenticate with the Netskope Cloud Exchange API
-    cloud_exchange_auth = ta_cloud_exchange_plugin_helper.CloudExchangeAuth(CLOUD_EXCHANGE_API_ENDPOINT, CLIENT_ID, 
-CLIENT_SECRET)
-    access_token = cloud_exchange_auth.get_access_token()
+        # Check if required configuration parameters are present
+        if "api_url" not in self.configuration:
+            self.logger.error("API URL is missing from configuration.")
+            raise ValueError("API URL is missing from configuration.")
+        if "api_username" not in self.configuration:
+            self.logger.error("API Username is missing from configuration.")
+            raise ValueError("API Username is missing from configuration.")
+        if "api_password" not in self.configuration:
+            self.logger.error("API Password is missing from configuration.")
+            raise ValueError("API Password is missing from configuration.")
+        if "org_id" not in self.configuration:
+            self.logger.error("Organization ID is missing from configuration.")
+            raise ValueError("Organization ID is missing from configuration.")
+        if "label_id" not in self.configuration:
+            self.logger.error("Label ID is missing from configuration.")
+            raise ValueError("Label ID is missing from configuration.")
 
-    # Retrieve a list of labels from the Illumio API
-    labels = get_labels()
-    if labels:
-        # Iterate over the labels and generate events for each one
-        for label in labels:
-            event = ta_cloud_exchange_plugin_helper.create_event(
-                'illumio_label',
-                {
-                    'id': label['id'],
-                    'name': label['name'],
-                    'description': label.get('description', ''),
-                    'created_at': label['created_at'],
-                    'updated_at': label['updated_at']
-                },
-                'illumio'
+    def validate(self, configuration) -> ValidationResult:
+        """
+        Validates the plugin configuration.
+
+        Returns:
+            A ValidationResult object indicating whether the validation was successful and, if not, the reason for failure.
+        """
+        if not isinstance(self.configuration["api_password"], str):
+            return ValidationResult(success=False, message="API username must be a string.")
+        if not isinstance(self.configuration["api_username"], str):
+            return ValidationResult(success=False, message="API secret must be a string.")
+        if not isinstance(self.configuration["api_url"], str):
+            return ValidationResult(success=False, message="API url must be a string.")
+        if not isinstance(self.configuration["org_id"].isdigit()):
+            return ValidationResult(success=False, message="Organization ID must be a digits.")
+        if not isinstance(self.configuration["label_id"], str):
+            return ValidationResult(success=False, message="Label ID must be a string.")
+        return ValidationResult(success=True, message="Validation successful.")
+
+    def pull_labels(self) -> Dict[str, str]:
+        """
+        Retrieves all labels from the Illumio API.
+
+        Returns:
+            A dictionary containing the labels and their IDs.
+        """
+        labels = (self.configuration["label_id"])
+        try:
+            response = requests.get(
+                url=f"{self.configuration['api_url']}/api/v2/orgs/{self.configuration['org_id']}/labels",
+                auth=(self.configuration["api_username"], self.configuration["api_password"]),
+                headers={"Content-Type": "application/json"},
+                timeout=30,
             )
-            # Ingest the event into the Netskope Security Cloud platform
-            ta_cloud_exchange_plugin_helper.ingest_event(CLOUD_EXCHANGE_API_ENDPOINT, access_token, event)
+            response.raise_for_status()
+            data = response.json()
+            for label in data:
+                labels[label["name"]] = label["id"]
+            return labels
+        except RequestException as e:
+            self.logger.error(f"Failed to retrieve labels from Illumio API: {e}")
+            raise ValueError(f"Failed to retrieve labels from Illumio API: {e}")
 
-# Call the main function
-if __name__ == '__main__':
-    main()
-
-
+    def run(self) -> None:
+        """
+        Runs the plugin.
+        """
+        labels = self.pull_labels()
+        print(json.dumps(labels, indent=4))

@@ -1,1 +1,0 @@
-"""GCP Storage CLS plugin."""
