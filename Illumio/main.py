@@ -136,8 +136,3 @@ class IllumioPlugin(PluginBase):
         if not isinstance(self.configuration["label_id"], str):
             return ValidationResult(success=False, message="Label ID must be a string.")
         return ValidationResult(success=True, message="Validation successful.")
-        else:
-            self.logger.error(
-                f"{PLUGIN_NAME}: Validation error occurred, Error: {err_msg}"
-            )
-            return ValidationResult(success=False, message=err_msg)
