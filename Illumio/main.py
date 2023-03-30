@@ -125,27 +125,17 @@ class IllumioPlugin(PluginBase):
             cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
         err_msg = None
-        if (
-                "api_url" not in configuration
-                or type(configuration.get(api_url)) != str
-                or not configuration["api_url"].strip()
-        ):
-            err_msg = "API URL is Required Field."
-
-        if configuration["api_url"] not in REGIONS:
-            err_msg = "Invalid URL Provided"
-
-        if (
-                "label_id" not in configuration
-                or type(configuration.get("label_id")) != str
-        ):
-            err_msg = "Label Field is required"
-
-        if not err_msg:
-            return ValidationResult(
-                success=True,
-                message=f"{PLUGIN_NAME}: Validation Successful.",
-            )
+        if not isinstance(self.configuration["api_password"], str):
+            return ValidationResult(success=False, message="API username must be a string.")
+        if not isinstance(self.configuration["api_username"], str):
+            return ValidationResult(success=False, message="API secret must be a string.")
+        if not isinstance(self.configuration["api_url"], str):
+            return ValidationResult(success=False, message="API url must be a string.")
+        if not isinstance(self.configuration["org_id"].isdigit()):
+            return ValidationResult(success=False, message="Organization ID must be a digits.")
+        if not isinstance(self.configuration["label_id"], str):
+            return ValidationResult(success=False, message="Label ID must be a string.")
+        return ValidationResult(success=True, message="Validation successful.")
         else:
             self.logger.error(
                 f"{PLUGIN_NAME}: Validation error occurred, Error: {err_msg}"
