@@ -14,8 +14,6 @@ from netskope.integrations.cte.models.business_rule import (
 )
 from netskope.common.utils import add_user_agent
 from pydantic import ValidationError
-from .utils.office365_constants import REGIONS, SERVICE_TYPES
-import uuid
 import requests
 
 PLUGIN_NAME = "Illumio"
@@ -87,21 +85,7 @@ class IllumioPlugin(PluginBase):
     def pull(self):
         """Pull Labels from PCE"""
 
-        """Create dynamic client request > requirement for this website"""
-       # clientRequestId = str(uuid.uuid4())
-
         """Get all content from location configured on the plugin"""
-       # region = self.configuration["region"].strip()
-       # url = f"https://endpoints.office.com/endpoints/{region}"
-       # params = {"clientRequestId": clientRequestId}
-
-        api_username = 'api_186832bf998c2ee8b'
-        api_password = 'bfe74299b44018cb2925624eb815a5007e72109e728f863771cb9b26dc0873a5'
-        api_url = 'https://illumio-pce-19.talabs.net:8443/api/v2/orgs/1'
-        org_id = '1'
-        label_id = 'quarantine'
-
-
         api_url = (self.configuration.get(api_url) + '/api/v2/orgs' + self.configuration.get(org_id) + '/workloads')
 
         headers = {
@@ -121,11 +105,11 @@ class IllumioPlugin(PluginBase):
             labels = jsonpath.jsonpath(json_response[i], 'labels[2].value')
 
             # Check if Location Label is set to "quarantine" if it is return public ip of workload
-            if (labels[0]) == label_id:
+            if (labels[0]) == self.configuration.get(label_id):
                 try:
-                public_ip = (jsonpath.jsonpath(json_response[i], 'public_ip'))
-                indicators.append(Indicator(value=public_ip[0],type=IndicatorType.URL,)
-                
+                    public_ip = (jsonpath.jsonpath(json_response[i], 'public_ip'))
+                    indicators.append(Indicator(value=public_ip[0],type=IndicatorType.URL,))
+
                 except ValidationError as err:
                         self.logger.error(
                         message=f"{PLUGIN_NAME}: Error occurred while pulling Labels. Hence skipping {url}",
