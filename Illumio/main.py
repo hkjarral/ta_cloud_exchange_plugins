@@ -20,7 +20,7 @@ PLUGIN_NAME = "Illumio"
 
 
 class IllumioException(Exception):
-    """Office365Endpoint Exception class."""
+    """Illumio Exception class."""
 
     pass
 
