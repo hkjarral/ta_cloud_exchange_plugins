@@ -160,7 +160,7 @@ class IllumioPlugin(PluginBase):
             )
         elif (
                 "org_id" not in data
-                or not isintance(data["org_id"],int)
+                or not isinstance(data["org_id"],int)
         ):
             self.logger.error(
                 "Sample Plugin: Validation error occurred Error: Organization ID is required with digits."
