@@ -106,7 +106,7 @@ class IllumioPlugin(PluginBase):
             labels = jsonpath.jsonpath(json_response[i], 'labels[2].value')
 
             # Check if Location Label is set to "quarantine" if it is return public ip of workload
-            if (labels[0]) == str(self.configuration.get("label_id")):
+            if (labels[0]) == str(config["label_id"]):
                 try:
                     public_ip = (jsonpath.jsonpath(json_response[i], 'public_ip'))
                     indicators.append(Indicator(value=public_ip[0],type=IndicatorType.URL,))
