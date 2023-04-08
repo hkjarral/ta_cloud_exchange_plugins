@@ -86,6 +86,7 @@ class IllumioPlugin(PluginBase):
         """Pull Labels from PCE"""
 
         """Get all content from location configured on the plugin"""
+        config = self.configuration
         full_api_url = (self.configuration.get(api_url) + '/api/v2/orgs' + str(self.configuration.get("org_id")) + '/workloads')
 
         headers = {
