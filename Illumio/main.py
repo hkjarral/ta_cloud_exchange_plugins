@@ -86,14 +86,14 @@ class IllumioPlugin(PluginBase):
         """Pull Labels from PCE"""
 
         """Get all content from location configured on the plugin"""
-        api_url = (self.configuration.get(api_url) + '/api/v2/orgs' + str(self.configuration.get("org_id")) + '/workloads')
+        full_api_url = (self.configuration.get(api_url) + '/api/v2/orgs' + str(self.configuration.get("org_id")) + '/workloads')
 
         headers = {
             'Accept': 'application/json'
         }
         auth = (str(self.configuration.get("api_username")), str(self.configuration.get("api_password")))
 
-        response = requests.get(api_url , headers=headers, auth=auth)
+        response = requests.get(full_api_url , headers=headers, auth=auth)
         data = self.handle_error(response)
         indicators = []
 
