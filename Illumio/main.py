@@ -87,7 +87,7 @@ class IllumioPlugin(PluginBase):
 
         """Get all content from location configured on the plugin"""
         config = self.configuration
-        full_api_url = (config["api_url"] + '/api/v2/orgs' + str(config["org_id"]) + '/workloads')
+        full_api_url = (config["api_url"] + '/api/v2/orgs/' + str(config["org_id"]) + '/workloads')
 
         headers = {
             'Accept': 'application/json'
