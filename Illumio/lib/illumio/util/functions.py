@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse
 
-from .utilversion import version
+from .util.version import version
 from .util.exceptions import IllumioException, IllumioIntegerValidationException
 from .constants import ACTIVE, DRAFT, PCE_APIS
 
