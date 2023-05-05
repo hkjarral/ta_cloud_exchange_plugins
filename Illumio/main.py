@@ -15,7 +15,7 @@ from netskope.integrations.cte.models.business_rule import (
 from netskope.common.utils import add_user_agent
 from pydantic import ValidationError
 import requests
-from illumio import *
+from .lib.illumio import *
 
 PLUGIN_NAME = "Illumio"
 
