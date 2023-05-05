@@ -19,7 +19,7 @@ from dataclasses import Field, dataclass, fields
 from inspect import signature, isclass
 from typing import List, Any, Union
 
-from .lib.illumio.exceptions import IllumioException
+from .._exceptions import IllumioException
 
 from .constants import IllumioEnumMeta
 from .functions import ignore_empty_keys, isunion, islist
