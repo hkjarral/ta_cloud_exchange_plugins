@@ -15,7 +15,6 @@ from netskope.integrations.cte.models.business_rule import (
 from netskope.common.utils import add_user_agent
 from pydantic import ValidationError
 import requests
-from illumio import *
 
 PLUGIN_NAME = "Illumio"
 
@@ -87,15 +86,14 @@ class IllumioPlugin(PluginBase):
         """Pull Labels from PCE"""
 
         """Get all content from location configured on the plugin"""
-        config = self.configuration
-        full_api_url = (config["api_url"] + '/api/v2/orgs/' + str(config["org_id"]) + '/workloads')
+        api_url = (self.configuration.get(api_url) + '/api/v2/orgs' + self.configuration.get(org_id) + '/workloads')
 
         headers = {
             'Accept': 'application/json'
         }
-        auth = (str(config["api_username"]), str(config["api_password"]))
+        auth = (self.configuration.get(api_username), self.configuration.get(api_password))
 
-        response = requests.get(full_api_url , headers=headers, auth=auth)
+        response = requests.get(api_url , headers=headers, auth=auth)
         data = self.handle_error(response)
         indicators = []
 
@@ -107,7 +105,7 @@ class IllumioPlugin(PluginBase):
             labels = jsonpath.jsonpath(json_response[i], 'labels[2].value')
 
             # Check if Location Label is set to "quarantine" if it is return public ip of workload
-            if (labels[0]) == config["label_id"]:
+            if (labels[0]) == self.configuration.get(label_id):
                 try:
                     public_ip = (jsonpath.jsonpath(json_response[i], 'public_ip'))
                     indicators.append(Indicator(value=public_ip[0],type=IndicatorType.URL,))
@@ -119,68 +117,22 @@ class IllumioPlugin(PluginBase):
                         )
         return indicators
 
-    def validate(self, data):
+    def validate(self, configuration):
         """Validate the Plugin configuration parameters.
-        Validation for all the parameters mentioned in the manifest.json for the existence and
-        data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
-        of successful validation and success = False and a error message in the case of failure.
         Args:
             data (dict): Dict object having all the Plugin configuration parameters.
         Returns:
             cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
-        self.logger.info("Sample Plugin: Executing validate method for Sample plugin")
-        if (
-                "api_password" not in data
-                or not isinstance(data["api_password"], str)
-        ):
-            self.logger.error(
-                "Sample Plugin: Validation error occurred Error: API password is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API password provided."
-            )
-        elif (
-                "api_username" not in data
-                or not isinstance(data["api_username"], str)
-        ):
-            self.logger.error(
-                "Sample Plugin: Validation error occurred Error: API username is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API username provided."
-            )
-        elif (
-                "api_url" not in data
-                or not isinstance(data["api_url"], str)
-        ):
-            self.logger.error(
-                "Sample Plugin: Validation error occurred Error: API URL is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API URL provided."
-            )
-        elif (
-                "org_id" not in data
-                or not isinstance(data["org_id"],int)
-        ):
-            self.logger.error(
-                "Sample Plugin: Validation error occurred Error: Organization ID is required with digits."
-            )
-            return ValidationResult(
-                success=False, message="Invalid Organization ID provided."
-            )
-        elif (
-                "label_id" not in data
-                or not isinstance(data["label_id"], str)
-        ):
-            self.logger.error(
-                "Sample Plugin: Validation error occurred Error: Label ID is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid Label ID provided."
-            )
-        else:
-            return ValidationResult(
-                success=True, message="Validation Successful for Sample plugin"
-            )
+        err_msg = None
+        if not isinstance(self.configuration["api_password"], str):
+            return ValidationResult(success=False, message="API username must be a string.")
+        if not isinstance(self.configuration["api_username"], str):
+            return ValidationResult(success=False, message="API secret must be a string.")
+        if not isinstance(self.configuration["api_url"], str):
+            return ValidationResult(success=False, message="API url must be a string.")
+        if not isinstance(self.configuration["org_id"].isdigit()):
+            return ValidationResult(success=False, message="Organization ID must be a digits.")
+        if not isinstance(self.configuration["label_id"], str):
+            return ValidationResult(success=False, message="Label ID must be a string.")
+        return ValidationResult(success=True, message="Validation successful.")
