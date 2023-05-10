@@ -23,7 +23,7 @@ from ..policyobjects import (
     VirtualServer,
     VirtualService
 )
-from illumio.util import (
+from ..util import (
     JsonObject,
     Reference,
     Transmission,
@@ -32,7 +32,7 @@ from illumio.util import (
     TrafficState,
     FQDN_REGEX
 )
-from illumio.workloads import Workload
+from ..workloads import Workload
 
 AND = 'and'
 OR = 'or'
