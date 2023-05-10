@@ -11,7 +11,7 @@ License:
 from dataclasses import dataclass
 from typing import List, Union
 
-from illumio.util import (
+from ..util import (
     JsonObject,
     Reference,
     MutableObject,
