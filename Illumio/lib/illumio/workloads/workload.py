@@ -11,11 +11,11 @@ License:
 from dataclasses import dataclass
 from typing import List, Union
 
-from illumio import IllumioException
-from illumio.infrastructure import ContainerCluster
-from illumio.policyobjects import BaseService, Service, ServicePort
-from illumio.vulnerabilities import Vulnerability
-from illumio.util import (
+from ..exceptions import IllumioException
+from ..infrastructure import ContainerCluster
+from ..policyobjects import BaseService, Service, ServicePort
+from ..vulnerabilities import Vulnerability
+from ..util import (
     JsonObject,
     Reference,
     MutableObject,
