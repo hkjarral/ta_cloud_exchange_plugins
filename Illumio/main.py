@@ -123,8 +123,8 @@ class IllumioPlugin(PluginBase):
                         details=f"Error Details: {err}",
                         )
         return indicators
-
-        def validate(self, data):
+    
+    def validate(self, data):
         """Validate the Plugin configuration parameters.
         Validation for all the parameters mentioned in the manifest.json for the existence and
         data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
