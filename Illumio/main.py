@@ -188,11 +188,13 @@ class IllumioPlugin(PluginBase):
             return ValidationResult(
                 success=False, message="Invalid Label ID provided."
             )
-        elif not pce.check_connection()(
+        elif (
+            
+            pce.check_connection() == False
+        ):
             self.logger.error(
                 "Illumio Plugin: API Connection Failed - Check credentials."
             )
-        )
             return ValidationResult(
                 success=False, message="Invalid credentials provided."
             )
