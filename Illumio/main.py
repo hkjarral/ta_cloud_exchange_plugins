@@ -193,7 +193,7 @@ class IllumioPlugin(PluginBase):
                 "Illumio Plugin: API Connection Failed - Check credentials."
             )
                 return ValidationResult(
-                success=False, message="Invalid credentials provided.
+                success=False, message="Invalid credentials provided."
             )
         else:
             return ValidationResult(
