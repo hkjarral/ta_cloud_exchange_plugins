@@ -18,7 +18,7 @@ from ..util import (
     pce_api,
     RESOLVE_AS_WORKLOADS
 )
-from illumio.policyobjects import Service, ServicePort
+from ..policyobjects import Service, ServicePort
 
 from .actor import Actor
 
