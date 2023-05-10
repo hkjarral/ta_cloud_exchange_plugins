@@ -125,67 +125,67 @@ class IllumioPlugin(PluginBase):
         return indicators
 
     def validate(self, data):
-        """Validate the Plugin configuration parameters.
-        Validation for all the parameters mentioned in the manifest.json for the existence and
-        data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
-        of successful validation and success = False and a error message in the case of failure.
-        Args:
-            data (dict): Dict object having all the Plugin configuration parameters.
-        Returns:
-            cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
-        """
-        self.logger.info("Sample Plugin: Executing validate method for Sample plugin")
-        if (
-                "api_password" not in data
-                or not isinstance(data["api_password"], str)
-        ):
-            self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: API password is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API password provided."
-            )
-        elif (
-                "api_username" not in data
-                or not isinstance(data["api_username"], str)
-        ):
-            self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: API username is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API username provided."
-            )
-        elif (
-                "api_url" not in data
-                or not isinstance(data["api_url"], str)
-        ):
-            self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: API URL is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid API URL provided."
-            )
-        elif (
-                "org_id" not in data
-                or not isinstance(data["org_id"],int)
-        ):
-            self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: Organization ID is required with digits."
-            )
-            return ValidationResult(
-                success=False, message="Invalid Organization ID provided."
-            )
-        elif (
-                "label_id" not in data
-                or not isinstance(data["label_id"], str)
-        ):
-            self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: Label ID is required with type string."
-            )
-            return ValidationResult(
-                success=False, message="Invalid Label ID provided."
-            )
-        else:
-            return ValidationResult(
-                success=True, message="Validation Successful for Illumio plugin"
-            )
+    """Validate the Plugin configuration parameters.
+    Validation for all the parameters mentioned in the manifest.json for the existence and
+    data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
+    of successful validation and success = False and a error message in the case of failure.
+    Args:
+        data (dict): Dict object having all the Plugin configuration parameters.
+    Returns:
+        cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
+    """
+    self.logger.info("Illumio Plugin: Executing validate method for Sample plugin")
+    if (
+            "api_url" not in data
+            or not isinstance(data["api_url"], str)
+    ):
+        self.logger.error(
+            "Illumio Plugin: Validation error occurred Error: API URL is required with type string."
+        )
+        return ValidationResult(
+            success=False, message="Invalid API URL provided."
+        )
+    elif (
+            "api_username" not in data
+            or not isinstance(data["api_username"], str)
+    ):
+        self.logger.error(
+            "Illumio Plugin: Validation error occurred Error: API username is required."
+        )
+        return ValidationResult(
+            success=False, message="Invalid API username provided."
+        )
+    elif (
+            "api_password" not in data
+            or not isinstance(data["api_password"], str)
+    ):
+        self.logger.error(
+            "Illumio Plugin: Validation error occurred Error: API password is required."
+        )
+        return ValidationResult(
+            success=False, message="Invalid API password provided."
+        )
+    elif (
+            "org_id" not in data
+            or not isinstance(data["org_id"], int)
+    ):
+        self.logger.error(
+            "Illumio Plugin: Validation error occurred Error: Organization ID is required with digits."
+        )
+        return ValidationResult(
+            success=False, message="Invalid Organization ID provided."
+        )
+    elif (
+            "label_id" not in data
+            or not isinstance(data["label_id"], str)
+    ):
+        self.logger.error(
+            "Illumio Plugin: Validation error occurred Error: Label ID is required."
+        )
+        return ValidationResult(
+            success=False, message="Invalid Label ID provided."
+        )
+    else:
+        return ValidationResult(
+            success=True, message="Validation Successful for Illumio plugin"
+        )
