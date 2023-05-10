@@ -192,10 +192,9 @@ class IllumioPlugin(PluginBase):
             self.logger.error(
                 "Illumio Plugin: API Connection Failed - Check credentials."
             )
-            return ValidationResult(
-                success=False, message="Invalid credentials provided."
+                return ValidationResult(
+                success=False, message="Invalid credentials provided.
             )
-        )
         else:
             return ValidationResult(
                 success=True, message="Validation Successful for Illumio plugin"
