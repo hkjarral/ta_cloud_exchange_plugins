@@ -11,8 +11,8 @@ License:
 import re
 from dataclasses import dataclass
 
-from illumio.exceptions import IllumioException
-from illumio.util import href_from, JsonObject, Reference, HREF_REGEX, AMS
+from ..exceptions import IllumioException
+from ..util import href_from, JsonObject, Reference, HREF_REGEX, AMS
 
 
 @dataclass
