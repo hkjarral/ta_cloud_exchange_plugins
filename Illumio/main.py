@@ -18,8 +18,7 @@ import requests
 from .lib.illumio import *
 
 PLUGIN_NAME = "Illumio"
-pce = PolicyComputeEngine('config["api_url"]', port='(config["port"]', org_id='(config["org_id"]')
-pce.set_credentials('config["api_username"]', 'config["api_password"]')
+
 
 
 class IllumioException(Exception):
