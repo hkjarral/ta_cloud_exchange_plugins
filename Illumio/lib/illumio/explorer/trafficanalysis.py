@@ -14,9 +14,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, List, Union, Optional
 
-from illumio import IllumioException
-from illumio.infrastructure import Network
-from illumio.policyobjects import (
+from ..exceptions import IllumioException
+from ..infrastructure import Network
+from ..policyobjects import (
     IPList,
     Label,
     ServicePort,
