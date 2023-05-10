@@ -11,7 +11,7 @@ License:
 from dataclasses import dataclass
 from typing import List
 
-from illumio.util import JsonObject, MutableObject
+from ..util import JsonObject, MutableObject
 
 from .actor import Actor
 
