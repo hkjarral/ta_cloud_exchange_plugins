@@ -11,7 +11,7 @@ License:
 from dataclasses import dataclass
 from typing import List, Union
 
-from .lib.illumio import Exception
+from .lib.illumio.Exception import IllumioException
 from .lib.illumio.util import (
     JsonObject,
     MutableObject,
