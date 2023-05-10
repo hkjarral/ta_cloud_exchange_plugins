@@ -11,8 +11,8 @@ License:
 from dataclasses import dataclass
 from typing import List
 
-from illumio.util import MutableObject, pce_api
-from illumio.policyobjects import LabelSet
+from ..util import MutableObject, pce_api
+from ..policyobjects import LabelSet
 
 from .rule import Rule
 from .iptablesrule import IPTablesRule
