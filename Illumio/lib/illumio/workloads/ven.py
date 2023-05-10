@@ -11,7 +11,7 @@ License:
 from dataclasses import dataclass, field
 from typing import List
 
-from ..exceptions import IllumioException, NotificationEvent
+from ..exceptions import IllumioException
 from ..infrastructure import ContainerCluster
 from ..util import (
     JsonObject,
