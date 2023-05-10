@@ -2,6 +2,7 @@
 import json
 import requests
 import jsonpath
+import validators
 from netskope.integrations.cte.plugin_base import (
     PluginBase,
     ValidationResult,
