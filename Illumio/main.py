@@ -135,32 +135,32 @@ class IllumioPlugin(PluginBase):
         cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
         self.logger.info("Illumio Plugin: Executing validate method for Sample plugin")
-        if "api_url" not in data or not isinstance(data["api_url"], str):
+        if "api_url" not in data or not isinstance(data["api_url"], str) or not data["api_url"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: API URL is required with type string."
             )
             return ValidationResult(success=False, message="Invalid API URL provided.")
-        elif "api_username" not in data or not isinstance(data["api_username"], str):
+        elif "api_username" not in data or not isinstance(data["api_username"], str) or not data["api_username"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: API Username is required with type string."
             )
             return ValidationResult(success=False, message="Invalid API Username provided.")
-        elif "api_password" not in data or not isinstance(data["api_password"], str):
+        elif "api_password" not in data or not isinstance(data["api_password"], str) or not data["api_username"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: API Password is required with type string."
             )
             return ValidationResult(success=False, message="Invalid API Password provided.")
-        elif "org_id" not in data or not isinstance(data["org_id"], int):
+        elif "org_id" not in data or not isinstance(data["org_id"], int) or not data["org_id"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Org ID is required with type int."
             )
             return ValidationResult(success=False, message="Invalid Org ID provided.")
-        elif "port" in data and not isinstance(data["port"], int):
+        elif "port" in data and not isinstance(data["port"], int) or not data["port"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Port should be an integer."
             )
             return ValidationResult(success=False, message="Invalid Port provided.")
-        elif "label_id" not in data or not isinstance(data["label_id"], str):
+        elif "label_id" not in data or not isinstance(data["label_id"], str) or not data["label_id"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Label ID is required with type string."
             )
