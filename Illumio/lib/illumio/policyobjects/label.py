@@ -12,7 +12,7 @@ import json
 from dataclasses import dataclass
 from typing import List
 
-from illumio.util import JsonObject, Reference, MutableObject, pce_api
+from ..util import JsonObject, Reference, MutableObject, pce_api
 
 
 @dataclass
