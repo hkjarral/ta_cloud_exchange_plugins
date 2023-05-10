@@ -11,8 +11,8 @@ License:
 from dataclasses import dataclass
 from typing import List
 
-from illumio import IllumioException
-from illumio.util import (
+from ..excepitions import IllumioException
+from ..util import (
     IllumioObject,
     Reference,
     MutableObject,
