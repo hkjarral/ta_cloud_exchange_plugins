@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import List, Union
 
 from ..exceptions import IllumioException
-from .lib.illumio.util import (
+from ..util import (
     JsonObject,
     MutableObject,
     ICMP_CODE_MAX,
