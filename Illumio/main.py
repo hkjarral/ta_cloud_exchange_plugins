@@ -19,8 +19,7 @@ from .lib.illumio import *
 
 PLUGIN_NAME = "Illumio"
 
-pce = PolicyComputeEngine('config["api_url"]', port='(config["port"]', org_id='(config["org_id"]')
-pce.set_credentials('config["api_username"]', 'config["api_password"]')
+
 
 
 
@@ -92,6 +91,8 @@ class IllumioPlugin(PluginBase):
 
         """Get all content from location configured on the plugin"""
         config = self.configuration
+        pce = PolicyComputeEngine('config["api_url"]', port='(config["port"]', org_id='(config["org_id"]')
+        pce.set_credentials('config["api_username"]', 'config["api_password"]')
         full_api_url = (config["api_url"] + '/api/v2/orgs/' + str(config["org_id"]) + '/workloads')
 
         headers = {
