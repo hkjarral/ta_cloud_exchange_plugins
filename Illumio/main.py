@@ -166,4 +166,4 @@ class IllumioPlugin(PluginBase):
             )
             return ValidationResult(success=False, message="Invalid Label ID provided.")
         else:
-            return ValidationResult(success=True, message="Validation successful.")```
+            return ValidationResult(success=True, message="Validation successful.")
