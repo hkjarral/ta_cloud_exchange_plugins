@@ -10,7 +10,7 @@ License:
 """
 from dataclasses import dataclass
 
-from illumio.util import IllumioObject, pce_api
+from ..util import IllumioObject, pce_api
 
 
 @dataclass
