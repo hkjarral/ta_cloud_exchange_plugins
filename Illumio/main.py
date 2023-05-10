@@ -134,9 +134,6 @@ class IllumioPlugin(PluginBase):
         Returns:
             cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
-        config = self.configuration
-        pce = PolicyComputeEngine('config["api_url"]', port='config["port"]', org_id='config["org_id"]')
-        pce.set_credentials('config["api_username"]', 'config["api_password"]')
         self.logger.info("Sample Plugin: Executing validate method for Sample plugin")
         if (
                 "api_password" not in data
@@ -187,16 +184,6 @@ class IllumioPlugin(PluginBase):
             )
             return ValidationResult(
                 success=False, message="Invalid Label ID provided."
-            )
-        elif (
-            
-            pce.check_connection() == False
-        ):
-            self.logger.error(
-                "Illumio Plugin: API Connection Failed - Check credentials."
-            )
-            return ValidationResult(
-                success=False, message="Invalid credentials provided."
             )
         else:
             return ValidationResult(
