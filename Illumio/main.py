@@ -135,9 +135,9 @@ class IllumioPlugin(PluginBase):
         cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
         self.logger.info("Illumio Plugin: Executing validate method for Sample plugin")
-        if "api_url" not in data or not isinstance(data["api_url"], str) or not data["api_url"]:
+        if "api_url" not in data or not isinstance(data["api_url"], str) or not data["api_url"] or not validators.url(data["api_url"]):
             self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: API URL is required with type string."
+                "Illumio Plugin: Validation error occurred Error: API URL is required."
             )
             return ValidationResult(success=False, message="Invalid API URL provided.")
         elif "api_username" not in data or not isinstance(data["api_username"], str) or not data["api_username"]:
@@ -145,7 +145,7 @@ class IllumioPlugin(PluginBase):
                 "Illumio Plugin: Validation error occurred Error: API Username is required with type string."
             )
             return ValidationResult(success=False, message="Invalid API Username provided.")
-        elif "api_password" not in data or not isinstance(data["api_password"], str) or not data["api_username"]:
+        elif "api_password" not in data or not isinstance(data["api_password"], str) or not data["api_password"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: API Password is required with type string."
             )
