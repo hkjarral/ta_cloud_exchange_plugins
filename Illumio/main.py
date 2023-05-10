@@ -91,7 +91,7 @@ class IllumioPlugin(PluginBase):
 
         """Get all content from location configured on the plugin"""
         config = self.configuration
-        pce = PolicyComputeEngine('config["api_url"]', port='(config["port"]', org_id='(config["org_id"]')
+        pce = PolicyComputeEngine('config["api_url"]', port='config["port"]', org_id='config["org_id"]')
         pce.set_credentials('config["api_username"]', 'config["api_password"]')
         full_api_url = (config["api_url"] + '/api/v2/orgs/' + str(config["org_id"]) + '/workloads')
 
@@ -135,7 +135,7 @@ class IllumioPlugin(PluginBase):
             cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
         config = self.configuration
-        pce = PolicyComputeEngine('config["api_url"]', port='(config["port"]', org_id='(config["org_id"]')
+        pce = PolicyComputeEngine('config["api_url"]', port='config["port"]', org_id='config["org_id"]')
         pce.set_credentials('config["api_username"]', 'config["api_password"]')
         self.logger.info("Sample Plugin: Executing validate method for Sample plugin")
         if (
