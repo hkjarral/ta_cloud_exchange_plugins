@@ -10,7 +10,7 @@ License:
 """
 from dataclasses import dataclass
 
-from illumio.util import MutableObject
+from ..util import MutableObject
 
 
 @dataclass
