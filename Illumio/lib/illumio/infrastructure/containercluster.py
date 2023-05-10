@@ -11,8 +11,8 @@ License:
 from dataclasses import dataclass
 from typing import List
 
-from illumio.exceptions import IllumioException
-from illumio.util import (
+from ..exceptions import IllumioException
+from ..util import (
     JsonObject,
     Reference,
     IllumioObject,
