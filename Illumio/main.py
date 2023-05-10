@@ -125,15 +125,16 @@ class IllumioPlugin(PluginBase):
         return indicators
 
     def validate(self, data):
-    """Validate the Plugin configuration parameters.
-    Validation for all the parameters mentioned in the manifest.json for the existence and
-    data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
-    of successful validation and success = False and a error message in the case of failure.
-    Args:
+        """Validate the Plugin configuration parameters.
+        Validation for all the parameters mentioned in the manifest.json for the existence and
+        data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
+        of successful validation and success = False and a error message in the case of failure.
+        Args:
         data (dict): Dict object having all the Plugin configuration parameters.
-    Returns:
+        Returns:
         cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
-    """
+        """
+        
     self.logger.info("Illumio Plugin: Executing validate method for Sample plugin")
     if (
             "api_url" not in data
