@@ -11,9 +11,9 @@ License:
 from dataclasses import dataclass, field
 from typing import List
 
-from illumio import IllumioException, NotificationEvent
-from illumio.infrastructure import ContainerCluster
-from illumio.util import (
+from ..exceptions import IllumioException, NotificationEvent
+from ..infrastructure import ContainerCluster
+from ..util import (
     JsonObject,
     Reference,
     MutableObject,
