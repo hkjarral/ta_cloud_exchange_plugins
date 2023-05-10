@@ -12,8 +12,8 @@ from dataclasses import dataclass
 from ipaddress import ip_address, ip_network
 from typing import List
 
-from illumio import IllumioException
-from illumio.util import JsonObject, MutableObject, pce_api
+from ..exceptions import IllumioException
+from .lib.illumio.util import JsonObject, MutableObject, pce_api
 
 
 @dataclass
