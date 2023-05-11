@@ -10,9 +10,9 @@
             "label": "PCE url",
             "key": "api_url",
             "type": "text",
-            "default": "https://login.illum.io",
+            "default": "",
             "mandatory": true,
-            "description": "Illumio API Base URL."
+            "description": "https://my.pce.com"
         },
         {
             "label": "Port",
@@ -43,7 +43,7 @@
             "key": "org_id",
             "type": "number",
             "mandatory": true,
-            "default": "1",
+            "default": 1,
             "description": "Organization ID"
         },
         {
