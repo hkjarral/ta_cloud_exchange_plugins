@@ -58,22 +58,22 @@ class IllumioPlugin(PluginBase):
         elif resp.status_code == 401:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
             raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 401, Authentication Error"
+                f"{PLUGIN_NAME}: Received exit code 401, Authentication Error - Authentication failure or HTTP/1.1 401 Unauthorized"
             )
         elif resp.status_code == 403:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
             raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 403, Forbidden User"
+                f"{PLUGIN_NAME}: Received exit code 403, Forbidden User - Authorization failure"
             )
         elif resp.status_code == 404:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
             raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 404, Not Found"
+                f"{PLUGIN_NAME}: Received exit code 404, Not Found - Invalid URL"
             )
         elif resp.status_code >= 400 and resp.status_code < 500:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
             raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP client Error"
+                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP client Error - Bad Request - Invalid URL or Method not allowed or Invalid Payload"
             )
         elif resp.status_code >= 500 and resp.status_code < 600:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
