@@ -2,7 +2,6 @@
 import json
 import requests
 import jsonpath
-import validators
 from netskope.integrations.cte.plugin_base import (
     PluginBase,
     ValidationResult,
@@ -136,7 +135,7 @@ class IllumioPlugin(PluginBase):
         cte.plugin_base.ValidateResult: ValidateResult object with success flag and message.
         """
         self.logger.info("Illumio Plugin: Executing validate method for Sample plugin")
-        if "api_url" not in data or not isinstance(data["api_url"], str) or not data["api_url"] or not validators.url(data["api_url"]):
+        if "api_url" not in data or not isinstance(data["api_url"], str) or not data["api_url"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: API URL is required."
             )
