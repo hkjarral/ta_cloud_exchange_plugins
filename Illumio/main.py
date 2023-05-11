@@ -92,18 +92,15 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        self.logger.info("PCE Connection Status: {}".format(pce.check_connection()))
         labels = pce.labels.get(params={"value": config["label_id"]})
-        self.logger.info("Labels Output: {}".format(labels))
         refs = [[label.href for label in labels]]
-        self.logger.info("Refs Output: {}".format(refs))
         workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
         indicators = []
 
         for workload in workloads:
             for interface in workload.interfaces:
                 try:
-                    self.logger.info(f"Successfully retrieved IP: {interface.address}")
+                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config["label_id"]}")
                     indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
                 except ValidationError as err:
                     self.logger.error(
