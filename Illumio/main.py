@@ -92,7 +92,8 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        labels = pce.labels.get(params={"value": config["label_id"]})
+        self.logger.info("PCE Connection Status" pce.check_connection()))
+        labels = pce.labels.get(params={"value": "config["label_id"]"})
         refs = [label.href for label in labels]
         workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
         indicators = []
