@@ -87,42 +87,29 @@ class IllumioPlugin(PluginBase):
             )
 
     def pull(self):
-        """Pull Labels from PCE"""
+    """Pull Labels from PCE"""
 
-        """Get all content from location configured on the plugin"""
-        config = self.configuration
-        pce = PolicyComputeEngine('config["api_url"]', port='config["port"]', org_id='config["org_id"]')
-        pce.set_credentials('config["api_username"]', 'config["api_password"]')
-        full_api_url = (config["api_url"] + '/api/v2/orgs/' + str(config["org_id"]) + '/workloads')
+    """Get all content from location configured on the plugin"""
+    config = self.configuration
+    pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
+    pce.set_credentials(config["api_username"], config["api_password"])
+    labels = pce.labels.get(params={"value": config["label_id"]})
+    refs = [label.href for label in labels]
+    workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
+    indicators = []
 
-        headers = {
-            'Accept': 'application/json'
-        }
-        auth = (str(config["api_username"]), str(config["api_password"]))
+    for workload in workloads:
+        for interface in workload.interfaces:
+            try:
+                self.logger.info(f"Successfully retrieved IP: {interface.address}")
+                indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
+            except ValidationError as err:
+                self.logger.error(
+                    message=f"{PLUGIN_NAME}: Error occurred while pulling Labels. Hence skipping {url}",
+                    details=f"Error Details: {err}",
+                )
+    return indicators
 
-        response = requests.get(full_api_url , headers=headers, auth=auth)
-        data = self.handle_error(response)
-        indicators = []
-
-        # Parse the JSON response to extract the workloads
-        json_response = json.loads(response.text)
-
-        # Extract value of Location Label from each array of the output.
-        for i in range(0, len(json_response)):
-            labels = jsonpath.jsonpath(json_response[i], 'labels[2].value')
-
-            # Check if Location Label is set to "quarantine" if it is return public ip of workload
-            if (labels[0]) == config["label_id"]:
-                try:
-                    public_ip = (jsonpath.jsonpath(json_response[i], 'public_ip'))
-                    indicators.append(Indicator(value=public_ip[0],type=IndicatorType.URL,))
-
-                except ValidationError as err:
-                        self.logger.error(
-                        message=f"{PLUGIN_NAME}: Error occurred while pulling Labels. Hence skipping {url}",
-                        details=f"Error Details: {err}",
-                        )
-        return indicators
     
     def validate(self, data):
         """Validate the Plugin configuration parameters.
