@@ -2,17 +2,17 @@
     "name": "Illumio",
     "id": "Illumio",
     "version": "1.0.0",
-    "description": "This plugin pulls labels from Illumio PCE",
+    "description": "This plugin pulls ip addresses for the desired labels from Illumio PCE",
     "patch_supported": true,
     "push_supported": true,
     "configuration": [
         {
-            "label": "PCE url",
+            "label": "https://my.pce.com",
             "key": "api_url",
             "type": "text",
             "default": "",
             "mandatory": true,
-            "description": "https://my.pce.com"
+            "description": "PCE url Address"
         },
         {
             "label": "Port",
@@ -20,7 +20,7 @@
             "type": "number",
             "default": 443,
             "mandatory": true,
-            "description": "Illumio API Port Number."
+            "description": "PCE API Port Number."
         },
         {
             "label": "API Authentication Username",
@@ -28,7 +28,7 @@
             "type": "text",
             "default": "",
             "mandatory": true,
-            "description": "Illumio API Username"
+            "description": "PCE API Username"
         },
         {
             "label": "API Secret",
@@ -36,7 +36,7 @@
             "type": "password",
             "default": "",
             "mandatory": true,
-            "description": "Illumio API password"
+            "description": "PCE API password"
         },
         {
             "label": "Organization ID",
