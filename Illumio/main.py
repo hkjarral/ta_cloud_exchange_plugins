@@ -155,7 +155,7 @@ class IllumioPlugin(PluginBase):
                 "Illumio Plugin: Validation error occurred Error: Org ID is required with type int."
             )
             return ValidationResult(success=False, message="Invalid Org ID provided.")
-        elif "port" in data and not isinstance(data["port"], int) or not data["port"]:
+        elif "port" not in data or not isinstance(data["port"], int) or not data["port"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Port should be an integer."
             )
