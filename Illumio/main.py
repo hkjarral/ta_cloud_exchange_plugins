@@ -97,6 +97,7 @@ class IllumioPlugin(PluginBase):
         self.logger.info("Labels Output: {}".format(labels))
         refs = [label.href for label in labels]
         workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
+        self.logger.info("Workloads Output: {}".format(workloads))
         indicators = []
 
         for workload in workloads:
