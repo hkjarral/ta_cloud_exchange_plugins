@@ -94,6 +94,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         self.logger.info("PCE Connection Status: {}".format(pce.check_connection()))
         labels = pce.labels.get(params={"value": config["label_id"]})
+        self.logger.info("Labels Output: {}".format(labels))
         refs = [label.href for label in labels]
         workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
         indicators = []
