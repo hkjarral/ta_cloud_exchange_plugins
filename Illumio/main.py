@@ -100,7 +100,7 @@ class IllumioPlugin(PluginBase):
         for workload in workloads:
             for interface in workload.interfaces:
                 try:
-                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config["label_id"]}")
+                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config['label_id']}")
                     indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
                 except ValidationError as err:
                     self.logger.error(
