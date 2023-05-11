@@ -156,4 +156,10 @@ class IllumioPlugin(PluginBase):
             )
             return ValidationResult(success=False, message="Invalid Label ID provided.")
         else:
+            try:
+                pce = PolicyComputeEngine(data["api_url"], port=data["api_port"], org_id=data["org_id"])
+                pce.set_credentials(data["api_username"], data["api_password"])
+                pce.must_connect()
+            except Exception as e:
+                return ValidationResult(success=False, message="Unable to connect to PCE: " + str(e))
             return ValidationResult(success=True, message="Validation successful.")
