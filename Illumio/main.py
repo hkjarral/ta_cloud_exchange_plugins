@@ -87,28 +87,28 @@ class IllumioPlugin(PluginBase):
             )
 
     def pull(self):
-    """Pull Labels from PCE"""
+        """Pull Labels from PCE"""
+        """Get all content from location configured on the plugin"""
+        config = self.configuration
+        pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
+        pce.set_credentials(config["api_username"], config["api_password"])
+        labels = pce.labels.get(params={"value": config["label_id"]})
+        refs = [label.href for label in labels]
+        workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
+        indicators = []
 
-    """Get all content from location configured on the plugin"""
-    config = self.configuration
-    pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
-    pce.set_credentials(config["api_username"], config["api_password"])
-    labels = pce.labels.get(params={"value": config["label_id"]})
-    refs = [label.href for label in labels]
-    workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
-    indicators = []
-
-    for workload in workloads:
-        for interface in workload.interfaces:
-            try:
-                self.logger.info(f"Successfully retrieved IP: {interface.address}")
-                indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
-            except ValidationError as err:
-                self.logger.error(
+        for workload in workloads:
+            for interface in workload.interfaces:
+                try:
+                    self.logger.info(f"Successfully retrieved IP: {interface.address}")
+                    indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
+                except ValidationError as err:
+                    self.logger.error(
                     message=f"{PLUGIN_NAME}: Error occurred while pulling Labels. Hence skipping {url}",
                     details=f"Error Details: {err}",
-                )
-    return indicators
+                    )
+                    
+        return indicators
 
     
     def validate(self, data):
