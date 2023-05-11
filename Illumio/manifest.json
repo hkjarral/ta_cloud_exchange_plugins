@@ -18,7 +18,7 @@
             "label": "Port",
             "key": "api_port",
             "type": "number",
-            "default": "443",
+            "default": 443,
             "mandatory": true,
             "description": "Illumio API Port Number."
         },
