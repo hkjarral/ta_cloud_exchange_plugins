@@ -92,9 +92,15 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        labels = pce.labels.get(params={"value": config["label_id"]})
-        refs = [[label.href for label in labels]]
-        workloads = pce.workloads.get(params={'labels': json.dumps(refs)})
+        #all_labels = (config["label_id"]).split(,)
+        
+        for key, value in config["label_id"].items();
+                                  labels = pce.labels.get(params={"key": key, "value": value})
+                                  if len(labels) > 0:
+                                  refs.append(labels[0].href)
+        #labels = pce.labels.get(params={"value": config["label_id"]})
+        #refs = [[label.href for label in labels]]
+        workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
         indicators = []
 
         for workload in workloads:
