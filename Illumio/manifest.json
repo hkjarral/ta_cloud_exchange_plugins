@@ -49,7 +49,7 @@
         {
             "label": "Label ID",
             "key": "label_id",
-            "type": "text",
+            "type": "dict",
             "mandatory": true,
             "default": "quarantine",
             "description": "Label ID"
