@@ -94,7 +94,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         #all_labels = (config["label_id"]).split(,)
         
-        for key, value in config["label_id"].items();
+        for key, value in config["label_id"].items():
                                   labels = pce.labels.get(params={"key": key, "value": value})
                                   if len(labels) > 0:
                                   refs.append(labels[0].href)
