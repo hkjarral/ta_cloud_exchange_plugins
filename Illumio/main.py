@@ -1,5 +1,6 @@
 """Illumio Plugin providing implementation for pull and validate methods from PluginBase."""
 import json
+import ast
 import requests
 import jsonpath
 from netskope.integrations.cte.plugin_base import (
@@ -92,9 +93,10 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
+        label_id = ast.literal_eval(config["label_id"])
         #all_labels = (config["label_id"]).split(",")
         refs = []
-        for key, value in ((config["label_id"]).items()):
+        for key, value in label_id.items():
             #key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
