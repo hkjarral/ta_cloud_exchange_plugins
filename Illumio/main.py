@@ -94,10 +94,11 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         all_labels = (config["label_id"]).split(",")
         refs = []
-        for key, value in all_labels.split(":"):
-                                  labels = pce.labels.get(params={"key": key, "value": value})
-                                  if len(labels) > 0:
-                                      refs.append(labels[0].href)
+        for label in all_labels:
+            key, value = label.split(":")
+            labels = pce.labels.get(params={"key": key, "value": value})
+            if len(labels) > 0:
+                refs.append(labels[0].href)
         #labels = pce.labels.get(params={"value": config["label_id"]})
         #refs = [[label.href for label in labels]]
         workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
