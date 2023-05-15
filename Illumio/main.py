@@ -92,10 +92,9 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        #all_labels = (config["label_id"]).split(,)
+        all_labels = (config["label_id"]).split(,)
         refs = []
-        
-        for key, value in config["label_id"].items():
+        for key, value in all_labels.split(":"):
                                   labels = pce.labels.get(params={"key": key, "value": value})
                                   if len(labels) > 0:
                                       refs.append(labels[0].href)
