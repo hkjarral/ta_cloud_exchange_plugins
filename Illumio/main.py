@@ -95,7 +95,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         self.logger.info(f'Illumio Plugin stored labels: {config["label_id"]}')
         self.logger.info(f'Illumio Plugin stored labels type: {type(config["label_id"])}')
-        label_id = ast.literal_eval{(config["label_id"])}
+        label_id = ast.literal_eval(config["label_id"])
         #all_labels = (config["label_id"]).split(",")
         refs = []
         for key, value in label_id.items():
