@@ -97,8 +97,10 @@ class IllumioPlugin(PluginBase):
         for label in all_labels:
             key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
+            self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
             if len(labels) > 0:
                 refs.append(labels[0].href)
+                self.logger.info(f"Illumio Plugin Successfully retrieved refs: {refs}")
         #labels = pce.labels.get(params={"value": config["label_id"]})
         #refs = [[label.href for label in labels]]
         workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
