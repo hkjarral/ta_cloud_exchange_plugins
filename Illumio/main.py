@@ -101,7 +101,7 @@ class IllumioPlugin(PluginBase):
         self.logger.info(f'Illumio Plugin all labels: {all_labels}')
         refs = []
         labels_dict = {}
-        for item in config["label_id"]:
+        for item in config["label_id"].split(","):
              key, value = item.split(':')
              labels_dict[key.strip().strip('"')] = value.strip().strip('"')
         for label in labels_dict.items():
