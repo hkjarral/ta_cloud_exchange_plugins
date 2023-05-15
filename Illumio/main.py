@@ -100,8 +100,12 @@ class IllumioPlugin(PluginBase):
         all_labels = (config["label_id"]).split(",")
         self.logger.info(f'Illumio Plugin all labels: {all_labels}')
         refs = []
-        for label in config["label_id"]:
-            key, value = label.split(":")
+        labels_dict = {}
+        for item in config["label_id"]:
+             key, value = item.split(':')
+             labels_dict[key.strip().strip('"')] = value.strip().strip('"')
+        for label in labels_dict.items():
+            #key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
             if len(labels) > 0:
