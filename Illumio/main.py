@@ -93,7 +93,8 @@ class IllumioPlugin(PluginBase):
         config = self.configuration
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        label_id = ast.literal_eval(config["label_id"])
+        self.logger.info(f"Illumio Plugin Successfully retrieved labels: {config["label_id"]}")
+        label_id = ast.literal_eval{(config["label_id"])}
         #all_labels = (config["label_id"]).split(",")
         refs = []
         for key, value in label_id.items():
