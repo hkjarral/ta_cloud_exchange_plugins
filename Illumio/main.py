@@ -95,12 +95,13 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         self.logger.info(f'Illumio Plugin stored labels: {config["label_id"]}')
         self.logger.info(f'Illumio Plugin stored labels type: {type(config["label_id"])}')
-        label_id = json.loads(config["label_id"])
+        #label_id = json.loads(config["label_id"])
         #label_id = ast.literal_eval(config["label_id"])
-        #all_labels = (config["label_id"]).split(",")
+        all_labels = (config["label_id"]).split(",")
+        self.logger.info(f'Illumio Plugin all labels: {all_labels}')
         refs = []
-        for key, value in label_id.items():
-            #key, value = label.split(":")
+        for label in config["label_id"]:
+            key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
             if len(labels) > 0:
