@@ -106,7 +106,7 @@ class IllumioPlugin(PluginBase):
                raise ValueError("Invalid dictionary format")
         except (json.JSONDecodeError, ValueError) as e:
             self.logger.error(f"Illumio Plugin - Error loading labels: {str(e)}")
-             sys.exit()
+            sys.exit()
                                
         refs = []
         
