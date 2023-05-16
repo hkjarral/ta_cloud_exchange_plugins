@@ -101,7 +101,7 @@ class IllumioPlugin(PluginBase):
         
         """Convert labels input to dictionary"""
         label_dict = json.loads('{' + config["label_id"] + '}')
-            if not isinstance(label_dict, dict):
+        if not isinstance(label_dict, dict):
             self.logger.info(f'Illumio Plugin - Incorrect labels formatting.')
         refs = []
         
