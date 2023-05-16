@@ -106,7 +106,7 @@ class IllumioPlugin(PluginBase):
         #for item in label_dict:
              #key, value = item.split(':')
              #labels_dict[key.strip().strip('"')] = value.strip().strip('"')
-        for labels in label_dict.items():
+        for label in label_dict.items():
             key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
