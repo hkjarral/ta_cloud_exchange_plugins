@@ -99,12 +99,14 @@ class IllumioPlugin(PluginBase):
         #label_id = ast.literal_eval(config["label_id"])
         all_labels = (config["label_id"]).split(",")
         self.logger.info(f'Illumio Plugin all labels: {all_labels}')
+        label_dict = json.loads('{' + config["label_id"] + '}')
+        self.logger.info(f'Illumio Plugin all labels dictionary: {label_dict}')
         refs = []
-        labels_dict = {}
-        for item in config["label_id"].split(","):
-             key, value = item.split(':')
-             labels_dict[key.strip().strip('"')] = value.strip().strip('"')
-        for label in labels_dict.items():
+        #labels_dict = {}
+        #for item in label_dict:
+             #key, value = item.split(':')
+             #labels_dict[key.strip().strip('"')] = value.strip().strip('"')
+        for labels in label_dict.items():
             #key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
