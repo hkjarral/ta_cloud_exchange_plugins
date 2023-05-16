@@ -1,6 +1,6 @@
 """Illumio Plugin providing implementation for pull and validate methods from PluginBase."""
 import json
-import ast
+import sys
 import requests
 import jsonpath
 from netskope.integrations.cte.plugin_base import (
@@ -100,15 +100,13 @@ class IllumioPlugin(PluginBase):
         all_labels = (config["label_id"]).split(",")
         
         """Convert labels input to dictionary"""
-        #label_dict = json.loads('{' + config["label_id"] + '}')
-        #if not isinstance(label_dict, dict):
-         #   self.logger.info(f'Illumio Plugin - Incorrect labels formatting.')
         try:
             label_dict = json.loads('{' + config["label_id"] + '}')
             if not isinstance(label_dict, dict):
                raise ValueError("Invalid dictionary format")
         except (json.JSONDecodeError, ValueError) as e:
-              self.logger.error(f"Illumio Plugin - Error loading labels: {str(e)}")
+            self.logger.error(f"Illumio Plugin - Error loading labels: {str(e)}")
+             sys.exit()
                                
         refs = []
         
