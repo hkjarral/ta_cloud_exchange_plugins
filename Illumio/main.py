@@ -91,33 +91,31 @@ class IllumioPlugin(PluginBase):
         """Pull Labels from PCE"""
         """Get all content from location configured on the plugin"""
         config = self.configuration
+
+        """Setting PCE API details"""
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-        self.logger.info(f'Illumio Plugin stored labels: {config["label_id"]}')
-        self.logger.info(f'Illumio Plugin stored labels type: {type(config["label_id"])}')
-        #label_id = json.loads(config["label_id"])
-        #label_id = ast.literal_eval(config["label_id"])
+
+        """Putting all lables together"""
         all_labels = (config["label_id"]).split(",")
-        self.logger.info(f'Illumio Plugin all labels: {all_labels}')
+        
+        """Convert labels input to dictionary"""
         label_dict = json.loads('{' + config["label_id"] + '}')
-        self.logger.info(f'Illumio Plugin all labels dictionary: {label_dict}')
+            if not isinstance(label_dict, dict):
+            self.logger.info(f'Illumio Plugin - Incorrect labels formatting.')
         refs = []
-        #labels_dict = {}
-        #for item in label_dict:
-             #key, value = item.split(':')
-             #labels_dict[key.strip().strip('"')] = value.strip().strip('"')
+        
+        """Passing label values"""
         for key, value in label_dict.items():
-            #key, value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
-            self.logger.info(f"Illumio Plugin Successfully retrieved labels: {labels}")
             if len(labels) > 0:
                 refs.append(labels[0].href)
-                self.logger.info(f"Illumio Plugin Successfully retrieved refs: {refs}")
-        #labels = pce.labels.get(params={"value": config["label_id"]})
-        #refs = [[label.href for label in labels]]
+
+        """Getting workload details"""
         workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
         indicators = []
 
+        """Getting interface address for each workload"""
         for workload in workloads:
             for interface in workload.interfaces:
                 try:
