@@ -88,7 +88,7 @@ class IllumioPlugin(PluginBase):
             )
 
     def pull(self):
-        """Pull Labels from PCE"""
+        """Pull IPs of desired Labels from PCE"""
         """Get all content from location configured on the plugin"""
         config = self.configuration
 
