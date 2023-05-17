@@ -97,21 +97,12 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
 
         """Putting all lables together"""
-        all_labels = (config["label_id"]).split(",")
+        label_dimensions = (config["label_id"]).split(",")
         
-        """Convert labels input to dictionary"""
-        try:
-            label_dict = json.loads('{' + config["label_id"] + '}')
-            if not isinstance(label_dict, dict):
-               raise ValueError("Invalid dictionary format")
-        except (json.JSONDecodeError, ValueError) as e:
-            self.logger.error(f"Illumio Plugin: Error loading labels: {str(e)}")
-            sys.exit()
-                               
         refs = []
         
         """Passing label values"""
-        for key, value in label_dict.items():
+        for label in label_dimensions:
             labels = pce.labels.get(params={"key": key, "value": value})
             if len(labels) > 0:
                 refs.append(labels[0].href)
