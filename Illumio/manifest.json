@@ -7,7 +7,7 @@
     "push_supported": true,
     "configuration": [
         {
-            "label": "https://my.pce.com",
+            "label": "PCE URL https://my.pce.com",
             "key": "api_url",
             "type": "text",
             "default": "",
@@ -47,11 +47,11 @@
             "description": "Organization ID"
         },
         {
-            "label": "loc:quarantine, app:monitoring, env:prod, role:jumpbox",
+            "label": "Label Scope - loc:quarantine, app:monitoring, env:prod, role:jumpbox",
             "key": "label_scope",
             "type": "text",
             "mandatory": true,
-            "default": "quarantine",
+            "default": "loc:quarantine",
             "description": "Desired label scope in defined format"
         }
     ]
