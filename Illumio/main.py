@@ -103,6 +103,7 @@ class IllumioPlugin(PluginBase):
         
         """Passing label values"""
         for label in label_dimensions:
+            key,value = label.split(":")
             labels = pce.labels.get(params={"key": key, "value": value})
             if len(labels) > 0:
                 refs.append(labels[0].href)
