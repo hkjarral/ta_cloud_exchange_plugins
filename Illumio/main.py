@@ -163,7 +163,7 @@ class IllumioPlugin(PluginBase):
                 "Illumio Plugin: Validation error occurred Error: Port should be an integer."
             )
             return ValidationResult(success=False, message="Invalid Port provided.")
-        elif "label_scope" not in data or not isinstance(data["label_scope"], str) or not data["label_scope"]:
+        elif "label_scope" not in data or not isinstance(data["label_scope"], str) or not data["label_scope"] or len(data["label_scope"].split(":")) < 2:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Label Scope is required with type string."
             )
