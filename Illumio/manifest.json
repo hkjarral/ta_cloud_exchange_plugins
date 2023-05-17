@@ -36,7 +36,7 @@
             "type": "password",
             "default": "",
             "mandatory": true,
-            "description": "PCE API password"
+            "description": "PCE API Password"
         },
         {
             "label": "Organization ID",
@@ -47,12 +47,12 @@
             "description": "Organization ID"
         },
         {
-            "label": "Label ID",
-            "key": "label_id",
+            "label": "loc:quarantine, app:monitoring, env:prod, role:jumpbox",
+            "key": "label_scope",
             "type": "text",
             "mandatory": true,
             "default": "quarantine",
-            "description": "Label ID"
+            "description": "Desired label scope in defined format"
         }
     ]
 }
