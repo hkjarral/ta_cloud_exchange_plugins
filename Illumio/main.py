@@ -165,9 +165,9 @@ class IllumioPlugin(PluginBase):
             return ValidationResult(success=False, message="Invalid Port provided.")
         elif "label_scope" not in data or not isinstance(data["label_scope"], str) or not data["label_scope"]:
             self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: Label ID is required with type string."
+                "Illumio Plugin: Validation error occurred Error: Label Scope is required with type string."
             )
-            return ValidationResult(success=False, message="Invalid Label ID provided.")
+            return ValidationResult(success=False, message="Invalid Label Scope provided.")
         else:
             try:
                 pce = PolicyComputeEngine(data["api_url"], port=data["api_port"], org_id=data["org_id"])
