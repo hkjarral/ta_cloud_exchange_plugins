@@ -97,7 +97,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
 
         """Putting all lables together"""
-        label_dimensions = (config["label_id"]).split(",")
+        label_dimensions = (config["label_scope"]).split(",")
         
         refs = []
         
@@ -116,7 +116,7 @@ class IllumioPlugin(PluginBase):
         for workload in workloads:
             for interface in workload.interfaces:
                 try:
-                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config['label_id']}")
+                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config['label_scope']}")
                     indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
                 except ValidationError as err:
                     self.logger.error(
@@ -163,7 +163,7 @@ class IllumioPlugin(PluginBase):
                 "Illumio Plugin: Validation error occurred Error: Port should be an integer."
             )
             return ValidationResult(success=False, message="Invalid Port provided.")
-        elif "label_id" not in data or not isinstance(data["label_id"], str) or not data["label_id"]:
+        elif "label_scope" not in data or not isinstance(data["label_scope"], str) or not data["label_scope"]:
             self.logger.error(
                 "Illumio Plugin: Validation error occurred Error: Label ID is required with type string."
             )
