@@ -10,6 +10,9 @@ from netskope.integrations.cte.models import Indicator, IndicatorType
 from pydantic import ValidationError
 from .lib.illumio import *
 
+class IllumioException(Exception):
+    """Illumio Exception class."""
+    pass
 
 def handle_error(resp: requests.Response) -> any:
     try:
