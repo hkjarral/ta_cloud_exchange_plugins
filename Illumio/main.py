@@ -1,22 +1,14 @@
 """Illumio Plugin providing implementation for pull and validate methods from PluginBase."""
 import json
-import sys
 import requests
-import jsonpath
 from netskope.integrations.cte.plugin_base import (
     PluginBase,
     ValidationResult,
     PushResult,
 )
 from netskope.integrations.cte.models import Indicator, IndicatorType
-from netskope.integrations.cte.models.business_rule import (
-    Action,
-    ActionWithoutParams,
-)
-from netskope.common.utils import add_user_agent
 from pydantic import ValidationError
-import requests
-from .lib.illumio import *
+from .lib.illumio import exceptions, pce, workloads
 
 
 def handle_error(resp: requests.Response) -> any:
