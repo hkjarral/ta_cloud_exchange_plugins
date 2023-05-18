@@ -24,17 +24,29 @@ PLUGIN_NAME = "Illumio"
 
 
 
-class IllumioException(Exception):
-    """Illumio Exception class."""
+#class IllumioException(Exception):
+ #   """Illumio Exception class."""
 
-    pass
+  #  pass
+
+def handle_error(resp: requests.Response) -> any:
+    try:
+        resp.raise_for_status()
+        return resp.json()
+    except ValueError as e:
+        raise Exception("{PLUGIN_NAME}: failed to parse JSON ... " + str(e)) from e
+        self.logger.error(f"{PLUGIN_NAME}: failed to parse JSON {str(e)}")
+    except Exception as e:
+        raise Exception("{PLUGIN_NAME}: Exception " + str(e)) from e
+        self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
 
 
-class IllumioPlugin(PluginBase):
-    """Illumio class template implementation."""
+
+"""class IllumioPlugin(PluginBase):
+    #Illumio class template implementation.
 
     def handle_error(self, resp: requests.models.Response):
-        """Handle the different HTTP response code.
+       #Handle the different HTTP response code.
 
         Args:
             resp (requests.models.Response): Response object returned from API
@@ -44,7 +56,7 @@ class IllumioPlugin(PluginBase):
             code is 200.
         Raises:
             HTTPError: When the response code is not 200.
-        """
+        
         err_msg = f"Response code {resp.status_code} received."
         if resp.status_code == 200 or resp.status_code == 201:
             try:
@@ -84,7 +96,7 @@ class IllumioPlugin(PluginBase):
         else:
             self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
             raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP Error"
+                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP Error""""
             )
 
     def pull(self):
