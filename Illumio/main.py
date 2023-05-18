@@ -18,88 +18,20 @@ from pydantic import ValidationError
 import requests
 from .lib.illumio import *
 
-PLUGIN_NAME = "Illumio"
-
-
-
-
-
-#class IllumioException(Exception):
- #   """Illumio Exception class."""
-
-  #  pass
 
 def handle_error(resp: requests.Response) -> any:
     try:
         resp.raise_for_status()
         return resp.json()
     except ValueError as e:
-        raise Exception("{PLUGIN_NAME}: failed to parse JSON ... " + str(e)) from e
+        raise Exception("Illumio Plugin: failed to parse JSON ... " + str(e)) from e
         self.logger.error(f"{PLUGIN_NAME}: failed to parse JSON {str(e)}")
     except Exception as e:
-        raise Exception("{PLUGIN_NAME}: Exception " + str(e)) from e
+        raise Exception("Illumio Plugin: Exception " + str(e)) from e
         self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
 
 
-
-"""class IllumioPlugin(PluginBase):
-    #Illumio class template implementation.
-
-    def handle_error(self, resp: requests.models.Response):
-       #Handle the different HTTP response code.
-
-        Args:
-            resp (requests.models.Response): Response object returned from API
-            call.
-        Returns:
-            dict: Returns the dictionary of response JSON when the response
-            code is 200.
-        Raises:
-            HTTPError: When the response code is not 200.
-        
-        err_msg = f"Response code {resp.status_code} received."
-        if resp.status_code == 200 or resp.status_code == 201:
-            try:
-                return resp.json()
-            except ValueError:
-                self.logger.error(
-                    f"{PLUGIN_NAME}: Response is not JSON format. "
-                )
-                raise IllumioException(
-                    f"{PLUGIN_NAME}: Exception occurred while parsing JSON response."
-                )
-        elif resp.status_code == 401:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 401, Authentication Error - Authentication failure or HTTP/1.1 401 Unauthorized"
-            )
-        elif resp.status_code == 403:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 403, Forbidden User - Authorization failure"
-            )
-        elif resp.status_code == 404:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code 404, Not Found - Invalid URL"
-            )
-        elif resp.status_code >= 400 and resp.status_code < 500:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP client Error - Bad Request - Invalid URL or Method not allowed or Invalid Payload"
-            )
-        elif resp.status_code >= 500 and resp.status_code < 600:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP server Error"
-            )
-        else:
-            self.logger.error(f"{PLUGIN_NAME}: {err_msg}")
-            raise IllumioException(
-                f"{PLUGIN_NAME}: Received exit code {resp.status_code}, HTTP Error""""
-            )
-
-    def pull(self):
+def pull(self):
         """Pull IPs of desired Labels from PCE"""
         """Get all content from location configured on the plugin"""
         config = self.configuration
