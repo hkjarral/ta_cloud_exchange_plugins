@@ -10,23 +10,21 @@ from netskope.integrations.cte.models import Indicator, IndicatorType
 from pydantic import ValidationError
 from .lib.illumio import *
 
-class IllumioException(Exception):
-    """Illumio Exception class."""
-    pass
 
-def handle_error(resp: requests.Response) -> any:
-    try:
-        resp.raise_for_status()
-        return resp.json()
-    except ValueError as e:
-        raise Exception("Illumio Plugin: failed to parse JSON ... " + str(e)) from e
-        self.logger.error(f"{PLUGIN_NAME}: failed to parse JSON {str(e)}")
-    except Exception as e:
-        raise Exception("Illumio Plugin: Exception " + str(e)) from e
-        self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
+class IllumioPlugin(PluginBase):
+    def handle_error(resp: requests.Response) -> any:
+        try:
+            resp.raise_for_status()
+            return resp.json()
+        except ValueError as e:
+            raise Exception("Illumio Plugin: failed to parse JSON ... " + str(e)) from e
+            self.logger.error(f"{PLUGIN_NAME}: failed to parse JSON {str(e)}")
+        except Exception as e:
+            raise Exception("Illumio Plugin: Exception " + str(e)) from e
+            self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
 
 
-def pull(self):
+    def pull(self):
         """Pull IPs of desired Labels from PCE"""
         """Get all content from location configured on the plugin"""
         config = self.configuration
@@ -65,7 +63,7 @@ def pull(self):
                     
         return indicators
 
-def validate(self, data):
+    def validate(self, data):
         """Validate the Plugin configuration parameters.
         Validation for all the parameters mentioned in the manifest.json for the existence and
         data type. Method returns the cte.plugin_base.ValidationResult object with success = True in the case
