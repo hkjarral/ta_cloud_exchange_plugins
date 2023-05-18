@@ -165,7 +165,7 @@ class IllumioPlugin(PluginBase):
             return ValidationResult(success=False, message="Invalid Port provided.")
         elif "label_scope" not in data or not isinstance(data["label_scope"], str) or not data["label_scope"] or len(data["label_scope"].split(":")) < 2:
             self.logger.error(
-                "Illumio Plugin: Validation error occurred Error: Label Scope is required with type string."
+                "Illumio Plugin: Validation error occurred Error: Label Scope is required with at least one key pair and described format"
             )
             return ValidationResult(success=False, message="Invalid Label Scope provided.")
         else:
