@@ -8,7 +8,7 @@ from netskope.integrations.cte.plugin_base import (
 )
 from netskope.integrations.cte.models import Indicator, IndicatorType
 from pydantic import ValidationError
-from .lib.illumio import *
+from .lib.illumio import PolicyComputeEngine
 
 
 class IllumioPlugin(PluginBase):
