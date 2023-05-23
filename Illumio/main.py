@@ -57,7 +57,7 @@ class IllumioPlugin(PluginBase):
 
         indicators = []
         indicators = self.labeltoip(pce, config["label_scope"])
-        self.logger.info(f"Illumio Plugin Successfully retrieved indicators: {indicators}")
+        self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
         return indicators
 
     def validate(self, data):
