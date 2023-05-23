@@ -60,7 +60,7 @@ class IllumioPlugin(PluginBase):
         ips = self.labeltoip(pce, config["label_scope"])
         for ip in ips:
             indicators.append(Indicator(value=ip, type=IndicatorType.URL))
-            self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
+            self.logger.info(f"Illumio Plugin: Successfully retrieved IP: {ip}")
         return indicators
 
 
