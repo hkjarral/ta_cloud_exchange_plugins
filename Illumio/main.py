@@ -17,11 +17,12 @@ class IllumioPlugin(PluginBase):
             resp.raise_for_status()
             return resp.json()
         except ValueError as e:
-            raise Exception("Illumio Plugin: failed to parse JSON ... " + str(e)) from e
-            self.logger.error(f"{Illumio Plugin: failed to parse JSON {str(e)}")
+            raise Exception(f"Illumio Plugin: failed to parse JSON ... {str(e)}") from e
+            self.logger.error(f"Illumio Plugin: failed to parse JSON {str(e)}")
         except Exception as e:
-            raise Exception("Illumio Plugin: Exception " + str(e)) from e
-            self.logger.error(f"{llumio Plugin: Exception {str(e)}")
+            raise Exception(f"Illumio Plugin: Exception {str(e)}") from e
+            self.logger.error(f"Illumio Plugin: Exception {str(e)}")
+
             
     def labeltoip(self, pce, label_scope):
         label_dimensions = label_scope.split(",")
