@@ -12,7 +12,7 @@ from .lib.illumio import PolicyComputeEngine
 
 
 class IllumioPlugin(PluginBase):
-    def handle_error(resp: requests.Response) -> any:
+    def handle_error(self, resp: requests.Response) -> any:
         try:
             resp.raise_for_status()
             return resp.json()
@@ -23,7 +23,7 @@ class IllumioPlugin(PluginBase):
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
             self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
             
-    def labeltoip(self,pce,label_scope):
+    def labeltoip(self, pce, label_scope):
         label_dimensions = label_scope.split(",")
         refs = []
         ips  = []
