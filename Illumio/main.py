@@ -31,7 +31,7 @@ class IllumioPlugin(PluginBase):
               key, value = label.split(":")
               labels = pce.labels.get(params={"key": key, "value": value})
               if len(labels) > 0:
-              refs.append(labels[0].href)
+                 refs.append(labels[0].href)
 
          workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
         
