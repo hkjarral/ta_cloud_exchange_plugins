@@ -44,7 +44,7 @@ class IllumioPlugin(PluginBase):
                  except ValidationError as err:
                     print("Error occurred while pulling Labels. Hence skipping")
 
-           return ips
+         return ips
 
 
     def pull(self):
