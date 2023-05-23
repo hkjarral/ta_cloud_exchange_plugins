@@ -57,10 +57,12 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
         
         indicators = []
-        #indicator = self.labeltoip(pce, config["label_scope"])
-        indicators.append(Indicator(value=self.labeltoip(pce, config["label_scope"]), type=IndicatorType.URL))
-        self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
+        ips = self.labeltoip(pce, config["label_scope"])
+        for ip in ips:
+            indicators.append(Indicator(value=ip, type=IndicatorType.URL))
+            self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
         return indicators
+
 
     def validate(self, data):
         """Validate the Plugin configuration parameters.
