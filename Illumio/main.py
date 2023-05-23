@@ -29,11 +29,11 @@ class IllumioPlugin(PluginBase):
         ips  = []
         for label in label_dimensions:
             key, value = label.split(":")
-            labels = self.pce.labels.get(params={"key": key, "value": value})
+            labels = pce.labels.get(params={"key": key, "value": value})
             if len(labels) > 0:
                 refs.append(labels[0].href)
 
-        workloads = self.pce.workloads.get(params={'labels': json.dumps([refs])})
+        workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
 
         for workload in workloads:
             for interface in workload.interfaces:
