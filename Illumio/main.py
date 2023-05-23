@@ -18,10 +18,10 @@ class IllumioPlugin(PluginBase):
             return resp.json()
         except ValueError as e:
             raise Exception("Illumio Plugin: failed to parse JSON ... " + str(e)) from e
-            self.logger.error(f"{PLUGIN_NAME}: failed to parse JSON {str(e)}")
+            self.logger.error(f"{Illumio Plugin: failed to parse JSON {str(e)}")
         except Exception as e:
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
-            self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
+            self.logger.error(f"{llumio Plugin: Exception {str(e)}")
             
     def labeltoip(self, pce, label_scope):
         label_dimensions = label_scope.split(",")
@@ -57,6 +57,7 @@ class IllumioPlugin(PluginBase):
 
         indicators = []
         indicators = self.labeltoip(pce, config["label_scope"])
+        self.logger.info(f"Illumio Plugin Successfully retrieved indicators: {indicators}")
         return indicators
 
     def validate(self, data):
