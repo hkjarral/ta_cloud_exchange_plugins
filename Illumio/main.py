@@ -55,8 +55,10 @@ class IllumioPlugin(PluginBase):
         """Setting PCE API details"""
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
-
-        indicators[] = self.labeltoip(pce, config["label_scope"])
+        
+        indicators = []
+        indicators = indicator(value=self.labeltoip(pce, config["label_scope"]), type=IndicatorType.URL))
+        #indicators = self.labeltoip(pce, config["label_scope"])
         self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
         return indicators
 
