@@ -56,11 +56,12 @@ class IllumioPlugin(PluginBase):
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
         
-        indicator = self.labeltoip(pce, config["label_scope"])
+        indicators = []
+        #indicator = self.labeltoip(pce, config["label_scope"])
         self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicator}")
-        #indicators = indicator(value=indicator, type=IndicatorType.URL)
+        indicators.append(Indicator(value=self.labeltoip(pce, config["label_scope"]), type=IndicatorType.URL))
         self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
-        return (indicators(value=indicator, type=IndicatorType.URL))
+        return indicators
 
     def validate(self, data):
         """Validate the Plugin configuration parameters.
