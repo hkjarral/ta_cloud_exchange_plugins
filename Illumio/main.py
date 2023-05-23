@@ -23,7 +23,7 @@ class IllumioPlugin(PluginBase):
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
             self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
             
-    def labeltoip(self, label_scope):
+    def labeltoip(pce, label_scope):
         label_dimensions = label_scope.split(",")
         refs = []
         ips  = []
@@ -56,7 +56,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
 
         indicators = []
-        indicators = self.labeltoip(self, config["label_scope"])
+        indicators = self.labeltoip(pce, config["label_scope"])
         return indicators
 
     def validate(self, data):
