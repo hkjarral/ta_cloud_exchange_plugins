@@ -23,7 +23,7 @@ class IllumioPlugin(PluginBase):
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
             self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
             
-    def labeltoip(pce, label_scope):
+    def labeltoip(self,pce,label_scope):
         label_dimensions = label_scope.split(",")
         refs = []
         ips  = []
