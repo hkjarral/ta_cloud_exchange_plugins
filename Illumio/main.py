@@ -56,7 +56,7 @@ class IllumioPlugin(PluginBase):
         pce.set_credentials(config["api_username"], config["api_password"])
 
         indicators = []
-        indicators = self.labeltoip(config["label_scope"])
+        indicators = self.labeltoip(self, config["label_scope"])
         return indicators
 
     def validate(self, data):
