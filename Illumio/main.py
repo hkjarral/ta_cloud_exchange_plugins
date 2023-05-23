@@ -22,6 +22,29 @@ class IllumioPlugin(PluginBase):
         except Exception as e:
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
             self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
+            
+    def labeltoip(label_scope):
+         label_dimensions = label_scope.split(",")
+         refs = []
+         ips = []
+         for label in label_dimensions:
+              key, value = label.split(":")
+              labels = pce.labels.get(params={"key": key, "value": value})
+              if len(labels) > 0:
+              refs.append(labels[0].href)
+
+         workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
+        
+         for workload in workloads:
+             for interface in workload.interfaces:
+                 try:
+                     print("Illumio Plugin Successfully retrieved IP: " + str(interface.address))
+                     ips.append(interface.address)
+
+                 except ValidationError as err:
+                    print("Error occurred while pulling Labels. Hence skipping")
+
+           return ips
 
 
     def pull(self):
@@ -33,34 +56,8 @@ class IllumioPlugin(PluginBase):
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
 
-        """Putting all lables together"""
-        label_dimensions = (config["label_scope"]).split(",")
-        
-        refs = []
-        
-        """Passing label values"""
-        for label in label_dimensions:
-            key,value = label.split(":")
-            labels = pce.labels.get(params={"key": key, "value": value})
-            if len(labels) > 0:
-                refs.append(labels[0].href)
 
-        """Getting workload details"""
-        workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
-        indicators = []
-
-        """Getting interface address for each workload"""
-        for workload in workloads:
-            for interface in workload.interfaces:
-                try:
-                    self.logger.info(f"Illumio Plugin Successfully retrieved IP: {interface.address} for {config['label_scope']}")
-                    indicators.append(Indicator(value=interface.address, type=IndicatorType.URL))
-                except ValidationError as err:
-                    self.logger.error(
-                    message=f"{PLUGIN_NAME}: Error occurred while pulling Labels. Hence skipping {url}",
-                    details=f"Error Details: {err}",
-                    )
-                    
+        indicators = labeltoip(config["label_scope"])
         return indicators
 
     def validate(self, data):
