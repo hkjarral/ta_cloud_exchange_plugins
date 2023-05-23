@@ -58,9 +58,9 @@ class IllumioPlugin(PluginBase):
         
         indicator = self.labeltoip(pce, config["label_scope"])
         self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicator}")
-        indicators = indicators(value=indicator, type=IndicatorType.URL)
+        #indicators = indicator(value=indicator, type=IndicatorType.URL)
         self.logger.info(f"Illumio Plugin: Successfully retrieved indicators: {indicators}")
-        return indicators
+        return (indicators(value=indicator, type=IndicatorType.URL))
 
     def validate(self, data):
         """Validate the Plugin configuration parameters.
