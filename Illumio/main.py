@@ -23,29 +23,28 @@ class IllumioPlugin(PluginBase):
             raise Exception("Illumio Plugin: Exception " + str(e)) from e
             self.logger.error(f"{PLUGIN_NAME}: Exception {str(e)}")
             
-    def labeltoip(label_scope):
-         label_dimensions = label_scope.split(",")
-         refs = []
-         ips = []
-         for label in label_dimensions:
-              key, value = label.split(":")
-              labels = pce.labels.get(params={"key": key, "value": value})
-              if len(labels) > 0:
-                 refs.append(labels[0].href)
+    def labeltoip(self, label_scope):
+        label_dimensions = label_scope.split(",")
+        refs = []
+        ips  = []
+        for label in label_dimensions:
+            key, value = label.split(":")
+            labels = self.pce.labels.get(params={"key": key, "value": value})
+            if len(labels) > 0:
+                refs.append(labels[0].href)
 
-         workloads = pce.workloads.get(params={'labels': json.dumps([refs])})
-        
-         for workload in workloads:
-             for interface in workload.interfaces:
-                 try:
-                     print("Illumio Plugin Successfully retrieved IP: " + str(interface.address))
-                     ips.append(interface.address)
+        workloads = self.pce.workloads.get(params={'labels': json.dumps([refs])})
 
-                 except ValidationError as err:
+        for workload in workloads:
+            for interface in workload.interfaces:
+                try:
+                    print("Illumio Plugin Successfully retrieved IP: " + str(interface.address))
+                    ips.append(interface.address)
+
+                except ValidationError as err:
                     print("Error occurred while pulling Labels. Hence skipping")
 
-         return ips
-
+        return ips
 
     def pull(self):
         """Pull IPs of desired Labels from PCE"""
@@ -56,8 +55,8 @@ class IllumioPlugin(PluginBase):
         pce = PolicyComputeEngine(config["api_url"], port=config["api_port"], org_id=config["org_id"])
         pce.set_credentials(config["api_username"], config["api_password"])
 
-
-        indicators = labeltoip(config["label_scope"])
+        indicators = []
+        indicators = self.labeltoip(config["label_scope"])
         return indicators
 
     def validate(self, data):
